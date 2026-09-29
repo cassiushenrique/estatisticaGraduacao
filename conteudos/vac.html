@@ -1,735 +1,1172 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#12372A">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#12372A">
 
-<title>Variáveis aleatórias contínuas | Estatística GCT018</title>
+    <title>Variáveis aleatórias contínuas | Estatística GCT018</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-<link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 
-<script src="../assets/mathjax.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="../assets/mathjax.js"></script>
+
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
 </head>
+
 
 <body>
 
-<header class="topbar">
 
-<a class="brand" href="../index.html">
-<span class="brand-mark">Σ</span>
-<span>
-<strong>Estatística</strong>
-<small>GCT018 · UFLA</small>
-</span>
-</a>
+    <!-- =====================================================
+         CABEÇALHO
+         ===================================================== -->
 
-<button class="menu-btn" aria-label="Abrir menu">☰</button>
+    <header class="topbar">
 
-<nav class="nav">
-<a href="../index.html#fundamentos">Fundamentos</a>
-<a href="../index.html#probabilidade">Probabilidade</a>
-<a href="../index.html#inferencia">Inferência</a>
-<a href="../index.html#modelagem">Modelagem</a>
-<a href="../conteudos/referencias.html">Referências</a>
-</nav>
+        <a class="brand" href="../index.html">
 
-</header>
+            <span class="brand-mark">
+                Σ
+            </span>
+
+            <span>
+                <strong>Estatística</strong>
+                <small>GCT018 · UFLA</small>
+            </span>
+
+        </a>
 
 
-<main class="content">
-
-<div class="breadcrumbs">
-<a href="../index.html">Início</a> / Variáveis aleatórias contínuas
-</div>
-
-<p class="eyebrow">VAC</p>
-
-<h1>Variáveis aleatórias contínuas</h1>
-
-<p class="lead">
-Distribuições para grandezas medidas em escala contínua.
-Probabilidades são obtidas pela área sob a densidade.
-</p>
-
-<div class="dist-nav">
-<a href="#uniforme">Uniforme</a>
-<a href="#exponencial">Exponencial</a>
-<a href="#gama">Gama</a>
-<a href="#normal">Normal</a>
-<a href="#beta">Beta</a>
-<a href="#weibull">Weibull</a>
-<a href="#lognormal">Lognormal</a>
-<a href="#chisq">Qui-quadrado</a>
-</div>
+        <button class="menu-btn" aria-label="Abrir menu">
+            ☰
+        </button>
 
 
-<h2>Estrutura de uma VAC</h2>
+        <nav class="nav">
 
-<div class="mathbox">
+            <a href="../index.html#fundamentos">
+                Fundamentos
+            </a>
 
-\[
-f_X(x)\ge0,\qquad
-\int_{-\infty}^{\infty}f_X(x)dx=1.
-\]
+            <a href="../index.html#probabilidade">
+                Probabilidade
+            </a>
 
-\[
-P(a&lt;X&lt;b)=\int_a^b f_X(x)dx,
-\qquad
-F_X(x)=P(X\le x)=\int_{-\infty}^x f_X(t)dt.
-\]
+            <a href="../index.html#inferencia">
+                Inferência
+            </a>
 
-</div>
+            <a href="../index.html#modelagem">
+                Modelagem
+            </a>
 
-<div class="note">
-Para uma variável absolutamente contínua,
-\(P(X=x)=0\).
-A densidade \(f(x)\) não é uma probabilidade em um ponto;
-probabilidades são áreas.
-</div>
+            <a href="../conteudos/referencias.html">
+                Referências
+            </a>
+
+        </nav>
+
+    </header>
 
 
-<section class="dist" id="uniforme">
+    <!-- =====================================================
+         CONTEÚDO
+         ===================================================== -->
 
-<h2>Uniforme contínua</h2>
+    <main class="content">
 
-<p>
-Modela uma grandeza contínua quando intervalos de mesmo comprimento,
-dentro de um intervalo fixo, têm a mesma probabilidade.
-</p>
 
-<div class="mathbox">
+        <!-- =================================================
+             NAVEGAÇÃO
+             ================================================= -->
 
-Se \(X\sim U(a,b)\),
+        <div class="breadcrumbs">
 
-\[
-f(x)=
-\begin{cases}
-\dfrac1{b-a}, &amp; a\le x\le b,\\
-0, &amp; \text{caso contrário},
-\end{cases}
-\]
+            <a href="../index.html">
+                Início
+            </a>
 
-\[
-F(x)=
-\begin{cases}
-0, &amp; x&lt;a,\\
-\dfrac{x-a}{b-a}, &amp; a\le x&lt;b,\\
-1, &amp; x\ge b,
-\end{cases}
-\]
+            / Variáveis aleatórias contínuas
 
-\[
-E(X)=\frac{a+b}{2},
-\quad
-\operatorname{Var}(X)=\frac{(b-a)^2}{12},
-\quad
-DP(X)=\frac{b-a}{\sqrt{12}}.
-\]
+        </div>
 
-</div>
 
-<p>
-<strong>Termos.</strong>
-\(X\) é a variável aleatória;
-\(x\) é um valor possível;
-\(a\) é o limite inferior;
-\(b\) é o limite superior, com \(a&lt;b\);
-\(f(x)\) é a densidade;
-\(F(x)=P(X\le x)\) é a função de distribuição acumulada.
-</p>
+        <p class="eyebrow">
+            VAC
+        </p>
 
-<p>
-<strong>Aplicação.</strong>
-Pode representar um instante de chegada dentro de uma janela de tempo
-quando, dentro dela, não há razão para privilegiar um instante específico.
-</p>
 
-<div class="rbox">
-<strong>R · min = a; max = b</strong>
+        <h1>
+            Variáveis aleatórias contínuas
+        </h1>
 
-<pre>
-dunif(2, min=0, max=5)
+
+        <p class="lead">
+            Distribuições para grandezas medidas em escala contínua.
+            Probabilidades são obtidas pela área sob a densidade.
+        </p>
+
+
+        <!-- =================================================
+             NAVEGAÇÃO ENTRE DISTRIBUIÇÕES
+             ================================================= -->
+
+        <div class="dist-nav">
+
+            <a href="#uniforme">
+                Uniforme
+            </a>
+
+            <a href="#exponencial">
+                Exponencial
+            </a>
+
+            <a href="#gama">
+                Gama
+            </a>
+
+            <a href="#normal">
+                Normal
+            </a>
+
+            <a href="#beta">
+                Beta
+            </a>
+
+            <a href="#weibull">
+                Weibull
+            </a>
+
+            <a href="#lognormal">
+                Lognormal
+            </a>
+
+            <a href="#chisq">
+                Qui-quadrado
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             ESTRUTURA DE UMA VAC
+             ================================================= -->
+
+        <h2>
+            Estrutura de uma VAC
+        </h2>
+
+
+        <div class="mathbox">
+
+            \[
+            f_X(x)\geq 0.
+            \]
+
+            \[
+            \int_{-\infty}^{\infty}
+            f_X(x)\,dx
+            =
+            1.
+            \]
+
+            \[
+            P(a&lt;X&lt;b)
+            =
+            \int_a^b f_X(x)\,dx.
+            \]
+
+            \[
+            F_X(x)
+            =
+            P(X\leq x)
+            =
+            \int_{-\infty}^{x} f_X(t)\,dt.
+            \]
+
+        </div>
+
+
+        <div class="note">
+
+            Para uma variável absolutamente contínua,
+            \(P(X=x)=0\).
+
+            A densidade \(f(x)\) não é uma probabilidade em um ponto;
+            probabilidades são áreas.
+
+        </div>
+
+
+        <!-- =================================================
+             UNIFORME CONTÍNUA
+             ================================================= -->
+
+        <section class="dist" id="uniforme">
+
+            <h2>
+                Uniforme contínua
+            </h2>
+
+
+            <p>
+                Modela uma grandeza contínua quando intervalos de mesmo
+                comprimento, dentro de um intervalo fixo, têm a mesma
+                probabilidade.
+            </p>
+
+
+            <div class="mathbox">
+
+                <p>
+                    Se \(X\sim U(a,b)\),
+                </p>
+
+                \[
+                f(x)=
+                \begin{cases}
+                \dfrac{1}{b-a},
+                    &amp; a\leq x\leq b,\\[6pt]
+                0,
+                    &amp; \text{caso contrário}.
+                \end{cases}
+                \]
+
+                \[
+                F(x)=
+                \begin{cases}
+                0,
+                    &amp; x&lt;a,\\[6pt]
+                \dfrac{x-a}{b-a},
+                    &amp; a\leq x&lt;b,\\[8pt]
+                1,
+                    &amp; x\geq b.
+                \end{cases}
+                \]
+
+                \[
+                E(X)
+                =
+                \frac{a+b}{2}.
+                \]
+
+                \[
+                \operatorname{Var}(X)
+                =
+                \frac{(b-a)^2}{12}.
+                \]
+
+                \[
+                DP(X)
+                =
+                \frac{b-a}{\sqrt{12}}.
+                \]
+
+            </div>
+
+
+            <p>
+                <strong>Termos.</strong>
+                \(X\) é a variável aleatória;
+                \(x\) é um valor possível;
+                \(a\) é o limite inferior;
+                \(b\) é o limite superior, com \(a&lt;b\);
+                \(f(x)\) é a densidade;
+                \(F(x)=P(X\leq x)\) é a função de distribuição acumulada.
+            </p>
+
+
+            <p>
+                <strong>Aplicação.</strong>
+                Pode representar um instante de chegada dentro de uma
+                janela de tempo quando, dentro dela, não há razão para
+                privilegiar um instante específico.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R · min = a; max = b
+                </strong>
+
+                <pre>dunif(2, min=0, max=5)
 punif(2, min=0, max=5)
 qunif(.95, min=0, max=5)
-runif(1000, min=0, max=5)
-</pre>
+runif(1000, min=0, max=5)</pre>
 
-</div>
+            </div>
 
-</section>
+        </section>
 
 
-<section class="dist" id="exponencial">
+        <!-- =================================================
+             EXPONENCIAL
+             ================================================= -->
 
-<h2>Exponencial</h2>
+        <section class="dist" id="exponencial">
 
-<p>
-É usada para tempos de espera não negativos quando a taxa instantânea
-de ocorrência é constante.
-</p>
+            <h2>
+                Exponencial
+            </h2>
 
-<div class="mathbox">
 
-\[
-f(x)=\lambda e^{-\lambda x},
-\ x\ge0,
-\qquad
-F(x)=1-e^{-\lambda x},
-\]
+            <p>
+                É usada para tempos de espera não negativos quando
+                a taxa instantânea de ocorrência é constante.
+            </p>
 
-\[
-E(X)=1/\lambda,
-\quad
-\operatorname{Var}(X)=1/\lambda^2,
-\quad
-DP(X)=1/\lambda.
-\]
 
-</div>
+            <div class="mathbox">
 
-<p>
-<strong>Termos.</strong>
-\(\lambda&gt;0\) é a taxa;
-\(x\ge0\) é o valor observado;
-\(e\) é a base dos logaritmos naturais;
-\(f(x)\) é a densidade e \(F(x)\) a acumulada.
-</p>
+                \[
+                f(x)
+                =
+                \lambda e^{-\lambda x},
+                \qquad x\geq0.
+                \]
 
-<p>
-<strong>Efeito do parâmetro.</strong>
-Quanto maior \(\lambda\), menor o tempo médio e maior a concentração
-perto de zero.
-</p>
+                \[
+                F(x)
+                =
+                1-e^{-\lambda x}.
+                \]
 
-<div class="plot">
-<img
-src="../assets/img/exponencial-parametros.svg"
-alt="Efeito de lambda na exponencial">
-</div>
+                \[
+                E(X)
+                =
+                \frac{1}{\lambda}.
+                \]
 
-<p>
-<strong>Aplicação.</strong>
-Tempo até uma falha sob taxa de falha constante ou tempo entre chegadas
-em um processo de Poisson homogêneo.
-</p>
+                \[
+                \operatorname{Var}(X)
+                =
+                \frac{1}{\lambda^2}.
+                \]
 
-<div class="rbox">
-<strong>R · rate = lambda</strong>
+                \[
+                DP(X)
+                =
+                \frac{1}{\lambda}.
+                \]
 
-<pre>
-dexp(5, rate=.2)
+            </div>
+
+
+            <p>
+                <strong>Termos.</strong>
+                \(\lambda&gt;0\) é a taxa;
+                \(x\geq0\) é o valor observado;
+                \(e\) é a base dos logaritmos naturais;
+                \(f(x)\) é a densidade e \(F(x)\) a acumulada.
+            </p>
+
+
+            <p>
+                <strong>Efeito do parâmetro.</strong>
+                Quanto maior \(\lambda\), menor o tempo médio e maior
+                a concentração perto de zero.
+            </p>
+
+
+            <div class="plot">
+
+                <img
+                    src="../assets/img/exponencial-parametros.svg"
+                    alt="Efeito de lambda na exponencial"
+                >
+
+            </div>
+
+
+            <p>
+                <strong>Aplicação.</strong>
+                Tempo até uma falha sob taxa de falha constante ou
+                tempo entre chegadas em um processo de Poisson homogêneo.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R · rate = lambda
+                </strong>
+
+                <pre>dexp(5, rate=.2)
 pexp(5, rate=.2)
 qexp(.95, rate=.2)
-rexp(1000, rate=.2)
-</pre>
+rexp(1000, rate=.2)</pre>
 
-</div>
+            </div>
 
-</section>
+        </section>
 
 
-<section class="dist" id="gama">
+        <!-- =================================================
+             GAMA
+             ================================================= -->
 
-<h2>Gama</h2>
+        <section class="dist" id="gama">
 
-<p>
-Família flexível para grandezas positivas e assimétricas,
-particularmente tempos e durações.
-</p>
+            <h2>
+                Gama
+            </h2>
 
-<div class="mathbox">
 
-Na parametrização forma–taxa,
+            <p>
+                Família flexível para grandezas positivas e assimétricas,
+                particularmente tempos e durações.
+            </p>
 
-\[
-f(x)=
-\frac{\beta^\alpha}{\Gamma(\alpha)}
-x^{\alpha-1}e^{-\beta x},
-\quad x&gt;0,
-\]
 
-\[
-F(x)=
-\frac{\gamma(\alpha,\beta x)}{\Gamma(\alpha)},
-\quad
-E(X)=\frac{\alpha}{\beta},
-\quad
-\operatorname{Var}(X)=\frac{\alpha}{\beta^2},
-\quad
-DP(X)=\frac{\sqrt{\alpha}}{\beta}.
-\]
+            <div class="mathbox">
 
-</div>
+                <p>
+                    Na parametrização forma–taxa,
+                </p>
 
-<p>
-<strong>Termos.</strong>
-\(\alpha&gt;0\) é a forma;
-\(\beta&gt;0\) é a taxa;
-\(\Gamma(\alpha)\) é a função gama;
-\(\gamma(\alpha,\beta x)\) é a gama incompleta inferior;
-\(x&gt;0\).
-A escala é \(\theta=1/\beta\).
-</p>
+                \[
+                f(x)
+                =
+                \frac{\beta^\alpha}{\Gamma(\alpha)}
+                x^{\alpha-1}e^{-\beta x},
+                \qquad x&gt;0.
+                \]
 
-<p>
-<strong>Efeito dos parâmetros.</strong>
-\(\alpha\) altera forma e assimetria;
-\(\alpha=1\) produz a exponencial.
-Aumentar \(\beta\), mantendo \(\alpha\), comprime a distribuição.
-</p>
+                \[
+                F(x)
+                =
+                \frac{\gamma(\alpha,\beta x)}
+                     {\Gamma(\alpha)}.
+                \]
 
-<div class="plot">
-<img
-src="../assets/img/gama-parametros.svg"
-alt="Efeito de forma e taxa na gama">
-</div>
+                \[
+                E(X)
+                =
+                \frac{\alpha}{\beta}.
+                \]
 
-<p>
-<strong>Aplicação.</strong>
-Tempo acumulado até múltiplos eventos, duração de processos
-e outras variáveis positivas assimétricas.
-</p>
+                \[
+                \operatorname{Var}(X)
+                =
+                \frac{\alpha}{\beta^2}.
+                \]
 
-<div class="rbox">
-<strong>R · shape = alpha; rate = beta ou scale = 1/beta</strong>
+                \[
+                DP(X)
+                =
+                \frac{\sqrt{\alpha}}{\beta}.
+                \]
 
-<pre>
-dgamma(4, shape=3, rate=.5)
+            </div>
+
+
+            <p>
+                <strong>Termos.</strong>
+                \(\alpha&gt;0\) é a forma;
+                \(\beta&gt;0\) é a taxa;
+                \(\Gamma(\alpha)\) é a função gama;
+                \(\gamma(\alpha,\beta x)\) é a gama incompleta inferior;
+                \(x&gt;0\).
+                A escala é \(\theta=1/\beta\).
+            </p>
+
+
+            <p>
+                <strong>Efeito dos parâmetros.</strong>
+                \(\alpha\) altera forma e assimetria;
+                \(\alpha=1\) produz a exponencial.
+                Aumentar \(\beta\), mantendo \(\alpha\),
+                comprime a distribuição.
+            </p>
+
+
+            <div class="plot">
+
+                <img
+                    src="../assets/img/gama-parametros.svg"
+                    alt="Efeito de forma e taxa na gama"
+                >
+
+            </div>
+
+
+            <p>
+                <strong>Aplicação.</strong>
+                Tempo acumulado até múltiplos eventos, duração de processos
+                e outras variáveis positivas assimétricas.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R · shape = alpha; rate = beta ou scale = 1/beta
+                </strong>
+
+                <pre>dgamma(4, shape=3, rate=.5)
 pgamma(4, shape=3, rate=.5)
 qgamma(.95, shape=3, rate=.5)
-rgamma(1000, shape=3, rate=.5)
-</pre>
+rgamma(1000, shape=3, rate=.5)</pre>
 
-</div>
+            </div>
 
-</section>
+        </section>
 
 
-<section class="dist" id="normal">
+        <!-- =================================================
+             NORMAL
+             ================================================= -->
 
-<h2>Normal</h2>
+        <section class="dist" id="normal">
 
-<p>
-Distribuição simétrica em torno de \(\mu\), frequentemente usada
-para erros de medição e grandezas formadas pela soma de muitos
-pequenos efeitos.
-</p>
+            <h2>
+                Normal
+            </h2>
 
-<div class="mathbox">
 
-\[
-f(x)=
-\frac1{\sigma\sqrt{2\pi}}
-\exp\!\left[
--\frac{(x-\mu)^2}{2\sigma^2}
-\right],
-\quad x\in\mathbb R,
-\]
+            <p>
+                Distribuição simétrica em torno de \(\mu\),
+                frequentemente usada para erros de medição e grandezas
+                formadas pela soma de muitos pequenos efeitos.
+            </p>
 
-\[
-F(x)=
-\Phi\!\left(
-\frac{x-\mu}{\sigma}
-\right),
-\quad
-E(X)=\mu,
-\quad
-\operatorname{Var}(X)=\sigma^2,
-\quad
-DP(X)=\sigma.
-\]
 
-</div>
+            <div class="mathbox">
 
-<p>
-<strong>Termos.</strong>
-\(\mu\in\mathbb R\) é a média e localização;
-\(\sigma&gt;0\) é o desvio-padrão;
-\(\sigma^2\) é a variância;
-\(\Phi\) é a acumulada da normal padrão;
-\(x\) é um valor possível.
-</p>
+                \[
+                f(x)
+                =
+                \frac{1}{\sigma\sqrt{2\pi}}
+                \exp\!\left[
+                    -\frac{(x-\mu)^2}{2\sigma^2}
+                \right],
+                \]
 
-<p>
-<strong>Efeito dos parâmetros.</strong>
-\(\mu\) desloca a curva;
-aumentar \(\sigma\) aumenta a dispersão e reduz o pico.
-</p>
+                \[
+                x\in\mathbb{R}.
+                \]
 
-<div class="plot">
-<img
-src="../assets/img/normal-parametros.svg"
-alt="Efeito de mu e sigma na normal">
-</div>
+                \[
+                F(x)
+                =
+                \Phi\!\left(
+                    \frac{x-\mu}{\sigma}
+                \right).
+                \]
 
-<p>
-<strong>Aplicação.</strong>
-Erros de medição, características dimensionais de processos estáveis
-e médias amostrais sob condições do TCL.
-</p>
+                \[
+                E(X)
+                =
+                \mu.
+                \]
 
-<div class="rbox">
-<strong>R · mean = mu; sd = sigma</strong>
+                \[
+                \operatorname{Var}(X)
+                =
+                \sigma^2.
+                \]
 
-<pre>
-dnorm(12, mean=10, sd=2)
+                \[
+                DP(X)
+                =
+                \sigma.
+                \]
+
+            </div>
+
+
+            <p>
+                <strong>Termos.</strong>
+                \(\mu\in\mathbb{R}\) é a média e localização;
+                \(\sigma&gt;0\) é o desvio-padrão;
+                \(\sigma^2\) é a variância;
+                \(\Phi\) é a acumulada da normal padrão;
+                \(x\) é um valor possível.
+            </p>
+
+
+            <p>
+                <strong>Efeito dos parâmetros.</strong>
+                \(\mu\) desloca a curva;
+                aumentar \(\sigma\) aumenta a dispersão e reduz o pico.
+            </p>
+
+
+            <div class="plot">
+
+                <img
+                    src="../assets/img/normal-parametros.svg"
+                    alt="Efeito de mu e sigma na normal"
+                >
+
+            </div>
+
+
+            <p>
+                <strong>Aplicação.</strong>
+                Erros de medição, características dimensionais de
+                processos estáveis e médias amostrais sob condições do TCL.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R · mean = mu; sd = sigma
+                </strong>
+
+                <pre>dnorm(12, mean=10, sd=2)
 pnorm(12, mean=10, sd=2)
 qnorm(.975, mean=10, sd=2)
-rnorm(1000, mean=10, sd=2)
-</pre>
+rnorm(1000, mean=10, sd=2)</pre>
 
-</div>
+            </div>
 
-</section>
+        </section>
 
 
-<section class="dist" id="beta">
+        <!-- =================================================
+             BETA
+             ================================================= -->
 
-<h2>Beta</h2>
+        <section class="dist" id="beta">
 
-<p>
-Família contínua em \((0,1)\), adequada para proporções contínuas
-e capaz de assumir formas muito distintas.
-</p>
+            <h2>
+                Beta
+            </h2>
 
-<div class="mathbox">
 
-\[
-f(x)=
-\frac{x^{\alpha-1}(1-x)^{\beta-1}}
-{B(\alpha,\beta)},
-\quad
-0&lt;x&lt;1,
-\qquad
-F(x)=I_x(\alpha,\beta),
-\]
+            <p>
+                Família contínua em \((0,1)\), adequada para proporções
+                contínuas e capaz de assumir formas muito distintas.
+            </p>
 
-\[
-E(X)=
-\frac{\alpha}{\alpha+\beta},
-\quad
-\operatorname{Var}(X)=
-\frac{\alpha\beta}
-{(\alpha+\beta)^2(\alpha+\beta+1)},
-\quad
-DP(X)=\sqrt{\operatorname{Var}(X)}.
-\]
 
-</div>
+            <div class="mathbox">
 
-<p>
-<strong>Termos.</strong>
-\(\alpha,\beta&gt;0\) são parâmetros de forma;
-\(B(\alpha,\beta)\) é a função beta;
-\(I_x(\alpha,\beta)\) é a beta incompleta regularizada;
-\(x\in(0,1)\).
-</p>
+                \[
+                f(x)
+                =
+                \frac{
+                    x^{\alpha-1}(1-x)^{\beta-1}
+                }{
+                    B(\alpha,\beta)
+                },
+                \qquad
+                0&lt;x&lt;1.
+                \]
 
-<p>
-<strong>Efeito dos parâmetros.</strong>
-\(\alpha=\beta\) produz simetria;
-\(\alpha&gt;\beta\) concentra mais massa em valores altos e
-\(\alpha&lt;\beta\), em valores baixos.
-</p>
+                \[
+                F(x)
+                =
+                I_x(\alpha,\beta).
+                \]
 
-<div class="plot">
-<img
-src="../assets/img/beta-parametros.svg"
-alt="Efeito de alpha e beta na beta">
-</div>
+                \[
+                E(X)
+                =
+                \frac{\alpha}{\alpha+\beta}.
+                \]
 
-<p>
-<strong>Aplicação.</strong>
-Fração de utilização de capacidade, proporção de tempo de operação
-e outras quantidades contínuas limitadas entre 0 e 1.
-</p>
+                \[
+                \operatorname{Var}(X)
+                =
+                \frac{
+                    \alpha\beta
+                }{
+                    (\alpha+\beta)^2
+                    (\alpha+\beta+1)
+                }.
+                \]
 
-<div class="rbox">
-<strong>R · shape1 = alpha; shape2 = beta</strong>
+                \[
+                DP(X)
+                =
+                \sqrt{\operatorname{Var}(X)}.
+                \]
 
-<pre>
-dbeta(.4, shape1=2, shape2=5)
+            </div>
+
+
+            <p>
+                <strong>Termos.</strong>
+                \(\alpha,\beta&gt;0\) são parâmetros de forma;
+                \(B(\alpha,\beta)\) é a função beta;
+                \(I_x(\alpha,\beta)\) é a beta incompleta regularizada;
+                \(x\in(0,1)\).
+            </p>
+
+
+            <p>
+                <strong>Efeito dos parâmetros.</strong>
+                \(\alpha=\beta\) produz simetria;
+                \(\alpha&gt;\beta\) concentra mais massa em valores altos
+                e \(\alpha&lt;\beta\), em valores baixos.
+            </p>
+
+
+            <div class="plot">
+
+                <img
+                    src="../assets/img/beta-parametros.svg"
+                    alt="Efeito de alpha e beta na beta"
+                >
+
+            </div>
+
+
+            <p>
+                <strong>Aplicação.</strong>
+                Fração de utilização de capacidade, proporção de tempo
+                de operação e outras quantidades contínuas limitadas
+                entre 0 e 1.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R · shape1 = alpha; shape2 = beta
+                </strong>
+
+                <pre>dbeta(.4, shape1=2, shape2=5)
 pbeta(.4, shape1=2, shape2=5)
 qbeta(.95, shape1=2, shape2=5)
-rbeta(1000, shape1=2, shape2=5)
-</pre>
+rbeta(1000, shape1=2, shape2=5)</pre>
 
-</div>
+            </div>
 
-</section>
+        </section>
 
 
-<section class="dist" id="weibull">
+        <!-- =================================================
+             WEIBULL
+             ================================================= -->
 
-<h2>Weibull</h2>
+        <section class="dist" id="weibull">
 
-<p>
-Distribuição amplamente usada em confiabilidade por permitir
-diferentes comportamentos da taxa de falha.
-</p>
+            <h2>
+                Weibull
+            </h2>
 
-<div class="mathbox">
 
-\[
-f(x)=
-\frac{k}{\lambda}
-\left(
-\frac{x}{\lambda}
-\right)^{k-1}
-e^{-(x/\lambda)^k},
-\quad
-x\ge0,
-\qquad
-F(x)=1-e^{-(x/\lambda)^k},
-\]
+            <p>
+                Distribuição amplamente usada em confiabilidade por
+                permitir diferentes comportamentos da taxa de falha.
+            </p>
 
-\[
-E(X)=
-\lambda\Gamma(1+1/k),
-\quad
-\operatorname{Var}(X)=
-\lambda^2
-[\Gamma(1+2/k)-\Gamma^2(1+1/k)],
-\quad
-DP(X)=\sqrt{\operatorname{Var}(X)}.
-\]
 
-</div>
+            <div class="mathbox">
 
-<p>
-<strong>Termos.</strong>
-\(k&gt;0\) é a forma;
-\(\lambda&gt;0\) é a escala;
-\(\Gamma(\cdot)\) é a função gama;
-\(x\ge0\) é o tempo ou medida observada.
-</p>
+                \[
+                f(x)
+                =
+                \frac{k}{\lambda}
+                \left(
+                    \frac{x}{\lambda}
+                \right)^{k-1}
+                e^{-(x/\lambda)^k},
+                \]
 
-<p>
-<strong>Efeito dos parâmetros.</strong>
-\(k&lt;1\): taxa de falha decrescente;
-\(k=1\): exponencial;
-\(k&gt;1\): taxa crescente.
-\(\lambda\) controla a escala temporal.
-</p>
+                \[
+                x\geq0.
+                \]
 
-<div class="plot">
-<img
-src="../assets/img/weibull-parametros.svg"
-alt="Efeito de forma e escala na Weibull">
-</div>
+                \[
+                F(x)
+                =
+                1-e^{-(x/\lambda)^k}.
+                \]
 
-<p>
-<strong>Aplicação.</strong>
-Vida útil de rolamentos, componentes mecânicos e eletrônicos.
-</p>
+                \[
+                E(X)
+                =
+                \lambda
+                \Gamma\!\left(
+                    1+\frac{1}{k}
+                \right).
+                \]
 
-<div class="rbox">
-<strong>R · shape = k; scale = lambda</strong>
+                \[
+                \operatorname{Var}(X)
+                =
+                \lambda^2
+                \left[
+                    \Gamma\!\left(1+\frac{2}{k}\right)
+                    -
+                    \Gamma^2\!\left(1+\frac{1}{k}\right)
+                \right].
+                \]
 
-<pre>
-dweibull(100, shape=2, scale=120)
+                \[
+                DP(X)
+                =
+                \sqrt{\operatorname{Var}(X)}.
+                \]
+
+            </div>
+
+
+            <p>
+                <strong>Termos.</strong>
+                \(k&gt;0\) é a forma;
+                \(\lambda&gt;0\) é a escala;
+                \(\Gamma(\cdot)\) é a função gama;
+                \(x\geq0\) é o tempo ou medida observada.
+            </p>
+
+
+            <p>
+                <strong>Efeito dos parâmetros.</strong>
+                \(k&lt;1\): taxa de falha decrescente;
+                \(k=1\): exponencial;
+                \(k&gt;1\): taxa crescente.
+                \(\lambda\) controla a escala temporal.
+            </p>
+
+
+            <div class="plot">
+
+                <img
+                    src="../assets/img/weibull-parametros.svg"
+                    alt="Efeito de forma e escala na Weibull"
+                >
+
+            </div>
+
+
+            <p>
+                <strong>Aplicação.</strong>
+                Vida útil de rolamentos, componentes mecânicos
+                e eletrônicos.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R · shape = k; scale = lambda
+                </strong>
+
+                <pre>dweibull(100, shape=2, scale=120)
 pweibull(100, shape=2, scale=120)
 qweibull(.95, shape=2, scale=120)
-rweibull(1000, shape=2, scale=120)
-</pre>
+rweibull(1000, shape=2, scale=120)</pre>
 
-</div>
+            </div>
 
-</section>
+        </section>
 
 
-<section class="dist" id="lognormal">
+        <!-- =================================================
+             LOGNORMAL
+             ================================================= -->
 
-<h2>Lognormal</h2>
+        <section class="dist" id="lognormal">
 
-<p>
-Uma variável positiva \(X\) é lognormal quando seu logaritmo natural
-tem distribuição normal.
-</p>
+            <h2>
+                Lognormal
+            </h2>
 
-<div class="mathbox">
 
-Se \(\log X\sim N(\mu,\sigma^2)\),
+            <p>
+                Uma variável positiva \(X\) é lognormal quando seu
+                logaritmo natural tem distribuição normal.
+            </p>
 
-\[
-f(x)=
-\frac1{x\sigma\sqrt{2\pi}}
-\exp\!\left[
--\frac{(\ln x-\mu)^2}{2\sigma^2}
-\right],
-\quad
-x&gt;0,
-\]
 
-\[
-F(x)=
-\Phi\!\left(
-\frac{\ln x-\mu}{\sigma}
-\right),
-\quad
-E(X)=e^{\mu+\sigma^2/2},
-\quad
-\operatorname{Var}(X)=
-(e^{\sigma^2}-1)e^{2\mu+\sigma^2},
-\quad
-DP(X)=\sqrt{\operatorname{Var}(X)}.
-\]
+            <div class="mathbox">
 
-</div>
+                <p>
+                    Se \(\log X\sim N(\mu,\sigma^2)\),
+                </p>
 
-<p>
-<strong>Termos.</strong>
-\(\mu\) é a média de \(\ln X\);
-\(\sigma&gt;0\) é o desvio-padrão de \(\ln X\);
-\(\Phi\) é a acumulada normal padrão;
-\(\ln\) é o logaritmo natural.
-</p>
+                \[
+                f(x)
+                =
+                \frac{1}{x\sigma\sqrt{2\pi}}
+                \exp\!\left[
+                    -\frac{(\ln x-\mu)^2}{2\sigma^2}
+                \right],
+                \]
 
-<p>
-<strong>Efeito dos parâmetros.</strong>
-\(\mu\) desloca a distribuição na escala logarítmica;
-aumentar \(\sigma\) aumenta a dispersão e a assimetria à direita.
-</p>
+                \[
+                x&gt;0.
+                \]
 
-<div class="plot">
-<img
-src="../assets/img/lognormal-parametros.svg"
-alt="Efeito dos parâmetros da lognormal">
-</div>
+                \[
+                F(x)
+                =
+                \Phi\!\left(
+                    \frac{\ln x-\mu}{\sigma}
+                \right).
+                \]
 
-<p>
-<strong>Aplicação.</strong>
-Tempos de reparo, tamanhos de partículas e grandezas positivas
-formadas por efeitos multiplicativos.
-</p>
+                \[
+                E(X)
+                =
+                e^{\mu+\sigma^2/2}.
+                \]
 
-<div class="note">
-<strong>R.</strong>
-<code>meanlog</code> e <code>sdlog</code> referem-se a
-\(\log X\), não a \(X\).
-</div>
+                \[
+                \operatorname{Var}(X)
+                =
+                \left(e^{\sigma^2}-1\right)
+                e^{2\mu+\sigma^2}.
+                \]
 
-<div class="rbox">
-<strong>R · meanlog = mu; sdlog = sigma</strong>
+                \[
+                DP(X)
+                =
+                \sqrt{\operatorname{Var}(X)}.
+                \]
 
-<pre>
-dlnorm(2, meanlog=0, sdlog=.5)
+            </div>
+
+
+            <p>
+                <strong>Termos.</strong>
+                \(\mu\) é a média de \(\ln X\);
+                \(\sigma&gt;0\) é o desvio-padrão de \(\ln X\);
+                \(\Phi\) é a acumulada normal padrão;
+                \(\ln\) é o logaritmo natural.
+            </p>
+
+
+            <p>
+                <strong>Efeito dos parâmetros.</strong>
+                \(\mu\) desloca a distribuição na escala logarítmica;
+                aumentar \(\sigma\) aumenta a dispersão e a assimetria
+                à direita.
+            </p>
+
+
+            <div class="plot">
+
+                <img
+                    src="../assets/img/lognormal-parametros.svg"
+                    alt="Efeito dos parâmetros da lognormal"
+                >
+
+            </div>
+
+
+            <p>
+                <strong>Aplicação.</strong>
+                Tempos de reparo, tamanhos de partículas e grandezas
+                positivas formadas por efeitos multiplicativos.
+            </p>
+
+
+            <div class="note">
+
+                <strong>
+                    R.
+                </strong>
+
+                <code>meanlog</code> e <code>sdlog</code> referem-se
+                a \(\log X\), não a \(X\).
+
+            </div>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R · meanlog = mu; sdlog = sigma
+                </strong>
+
+                <pre>dlnorm(2, meanlog=0, sdlog=.5)
 plnorm(2, meanlog=0, sdlog=.5)
 qlnorm(.95, meanlog=0, sdlog=.5)
-rlnorm(1000, meanlog=0, sdlog=.5)
-</pre>
+rlnorm(1000, meanlog=0, sdlog=.5)</pre>
 
-</div>
+            </div>
 
-</section>
+        </section>
 
 
-<section class="dist" id="chisq">
+        <!-- =================================================
+             QUI-QUADRADO
+             ================================================= -->
 
-<h2>Qui-quadrado</h2>
+        <section class="dist" id="chisq">
 
-<p>
-Família positiva determinada pelos graus de liberdade,
-central na inferência sobre variâncias de populações normais.
-</p>
+            <h2>
+                Qui-quadrado
+            </h2>
 
-<div class="mathbox">
 
-\[
-f(x)=
-\frac{x^{\nu/2-1}e^{-x/2}}
-{2^{\nu/2}\Gamma(\nu/2)},
-\quad
-x&gt;0,
-\qquad
-F(x)=P(X\le x),
-\]
+            <p>
+                Família positiva determinada pelos graus de liberdade,
+                central na inferência sobre variâncias de populações normais.
+            </p>
 
-\[
-E(X)=\nu,
-\quad
-\operatorname{Var}(X)=2\nu,
-\quad
-DP(X)=\sqrt{2\nu}.
-\]
 
-</div>
+            <div class="mathbox">
 
-<p>
-<strong>Termos.</strong>
-\(\nu&gt;0\) representa os graus de liberdade;
-\(\Gamma(\nu/2)\) é a função gama;
-\(x&gt;0\) é o valor observado.
-</p>
+                \[
+                f(x)
+                =
+                \frac{
+                    x^{\nu/2-1}e^{-x/2}
+                }{
+                    2^{\nu/2}\Gamma(\nu/2)
+                },
+                \qquad
+                x&gt;0.
+                \]
 
-<p>
-<strong>Efeito do parâmetro.</strong>
-Com poucos graus de liberdade há forte assimetria à direita;
-à medida que \(\nu\) cresce, a distribuição se desloca para a direita
-e fica relativamente menos assimétrica.
-</p>
+                \[
+                F(x)
+                =
+                P(X\leq x).
+                \]
 
-<div class="plot">
-<img
-src="../assets/img/chisq-parametros.svg"
-alt="Efeito dos graus de liberdade na qui-quadrado">
-</div>
+                \[
+                E(X)
+                =
+                \nu.
+                \]
 
-<p>
-<strong>Aplicação.</strong>
-Intervalos de confiança e testes para a variância de uma população normal.
-</p>
+                \[
+                \operatorname{Var}(X)
+                =
+                2\nu.
+                \]
 
-<div class="rbox">
-<strong>R · df = nu</strong>
+                \[
+                DP(X)
+                =
+                \sqrt{2\nu}.
+                \]
 
-<pre>
-dchisq(8, df=5)
+            </div>
+
+
+            <p>
+                <strong>Termos.</strong>
+                \(\nu&gt;0\) representa os graus de liberdade;
+                \(\Gamma(\nu/2)\) é a função gama;
+                \(x&gt;0\) é o valor observado.
+            </p>
+
+
+            <p>
+                <strong>Efeito do parâmetro.</strong>
+                Com poucos graus de liberdade há forte assimetria à direita;
+                à medida que \(\nu\) cresce, a distribuição se desloca
+                para a direita e fica relativamente menos assimétrica.
+            </p>
+
+
+            <div class="plot">
+
+                <img
+                    src="../assets/img/chisq-parametros.svg"
+                    alt="Efeito dos graus de liberdade na qui-quadrado"
+                >
+
+            </div>
+
+
+            <p>
+                <strong>Aplicação.</strong>
+                Intervalos de confiança e testes para a variância
+                de uma população normal.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R · df = nu
+                </strong>
+
+                <pre>dchisq(8, df=5)
 pchisq(8, df=5)
 qchisq(.95, df=5)
-rchisq(1000, df=5)
-</pre>
+rchisq(1000, df=5)</pre>
 
-</div>
+            </div>
 
-</section>
-
-
-<div class="refbox">
-Referências: Montgomery & Runger (2012); Devore (2018);
-Casella & Berger (2010).
-
-Para a parametrização computacional, consulte a ajuda da versão
-do R utilizada por meio de <code>help("Distributions")</code>
-e da documentação de cada função, por exemplo
-<code>?dnorm</code>.
-</div>
-
-</main>
+        </section>
 
 
-<footer>
+        <!-- =================================================
+             REFERÊNCIAS
+             ================================================= -->
 
-<div>
-<strong>Estatística: Conceitos e Experimentações</strong><br>
-Material de apoio · ICTIN/UFLA
-</div>
+        <div class="refbox">
 
-<div>
-Prof. Dr. Cássius Henrique Xavier Oliveira<br>
-© <span id="year"></span>
-</div>
+            Referências:
+            Montgomery &amp; Runger (2012);
+            Devore (2018);
+            Casella &amp; Berger (2010).
 
-</footer>
+            <br><br>
 
-<script src="../assets/script.js"></script>
+            Para a parametrização computacional, consulte a ajuda
+            da versão do R utilizada por meio de
+            <code>help("Distributions")</code>
+            e da documentação de cada função, por exemplo
+            <code>?dnorm</code>.
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         RODAPÉ
+         ===================================================== -->
+
+    <footer>
+
+        <div>
+
+            <strong>
+                Estatística: Conceitos e Experimentações
+            </strong>
+
+            <br>
+
+            Material de apoio · ICTIN/UFLA
+
+        </div>
+
+
+        <div>
+
+            Prof. Dr. Cássius Henrique Xavier Oliveira
+
+            <br>
+
+            © <span id="year"></span>
+
+        </div>
+
+    </footer>
+
+
+    <script src="../assets/script.js"></script>
+
 
 </body>
+
 </html>
