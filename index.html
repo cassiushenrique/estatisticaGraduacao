@@ -1,3 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#12372A">
+
+<title>Estatística: Conceitos e Experimentações | Estatística GCT018</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/style.css">
+
+<script src="assets/mathjax.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+
+/* =========================================================
+   SEÇÃO DE APLICATIVOS
+   ========================================================= */
+
+.aplicativos-section {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 30px 24px 90px;
+}
+
+.aplicativos-head {
+    margin-bottom: 34px;
+}
+
+.aplicativos-label {
+    display: inline-block;
+    margin-bottom: 14px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+
+    color: #1f5b43;
+}
+
+.aplicativos-head h2 {
+    margin: 0 0 12px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    line-height: 1.15;
+
+    color: #17201c;
+}
+
+.aplicativos-head h2 span {
+    color: #1f5b43;
+}
+
+.aplicativos-head p {
+    max-width: 760px;
+    margin: 0;
+
+    font-size: 1rem;
+    line-height: 1.7;
+
+    color: #5a655f;
+}
+
+.aplicativos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.aplicativo-card {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 300px;
+    padding: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(18, 55, 42, 0.12);
+    border-radius: 22px;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.aplicativo-card:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(18, 55, 42, 0.28);
+
+    box-shadow: 0 18px 38px rgba(18, 55, 42, 0.10);
+}
+
+.aplicativo-num {
+    display: inline-block;
+
+    margin-bottom: 22px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+
+    color: #1f5b43;
+}
+
+.aplicativo-card h3 {
+    margin: 0 0 14px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 1.35rem;
+    line-height: 1.25;
+
+    color: #12372A;
+}
+
+.aplicativo-card p {
+    margin: 0 0 26px;
+
+    font-size: 0.96rem;
+    line-height: 1.65;
+
+    color: #5a655f;
+}
+
+.aplicativo-link {
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: auto;
+
+    font-weight: 700;
+
+    color: #12372A;
+}
+
+.aplicativo-card:hover .aplicativo-link {
+    text-decoration: underline;
+}
+
+/* Aplicativos ainda não publicados */
+
+.aplicativo-card.indisponivel {
+    cursor: default;
+}
+
+.aplicativo-card.indisponivel:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.aplicativo-card.indisponivel .aplicativo-link {
+    color: #7a847f;
+    text-decoration: none;
+}
+
+@media (max-width: 900px) {
+
+    .aplicativos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .aplicativo-card {
+        min-height: auto;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .aplicativos-section {
+        padding: 20px 20px 65px;
+    }
+
+}
+
+
+/* =========================================================
+   SEÇÃO DO PROFESSOR
+   ========================================================= */
+
+.professor-section {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 30px 24px 90px;
+}
+
+.professor-card {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 38px;
+    align-items: center;
+
+    padding: 38px;
+
+    background: #12372A;
+    color: #ffffff;
+
+    border-radius: 28px;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.professor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(18, 55, 42, 0.18);
+}
+
+.professor-photo {
+    width: 190px;
+    height: 190px;
+
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 22px;
+
+    display: block;
+}
+
+.professor-info {
+    max-width: 720px;
+}
+
+.professor-label {
+    display: inline-block;
+
+    margin-bottom: 16px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+
+    color: #dff36a;
+}
+
+.professor-info h2 {
+    margin: 0 0 8px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(1.65rem, 3vw, 2.35rem);
+    line-height: 1.12;
+
+    color: #ffffff;
+}
+
+.professor-cargo {
+    margin: 0 0 18px;
+
+    font-weight: 600;
+
+    color: #dff36a;
+}
+
+.professor-descricao {
+    margin: 0 0 24px;
+
+    max-width: 680px;
+
+    font-size: 1rem;
+    line-height: 1.7;
+
+    color: rgba(255,255,255,0.88);
+}
+
+.professor-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+.professor-card:hover .professor-link {
+    text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+
+    .professor-section {
+        padding: 20px 20px 65px;
+    }
+
+    .professor-card {
+        grid-template-columns: 1fr;
+        gap: 25px;
+
+        padding: 28px;
+    }
+
+    .professor-photo {
+        width: 150px;
+        height: 150px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+<a class="brand" href="index.html">
+
+<span class="brand-mark">Σ</span>
+
+<span>
+<strong>Estatística</strong>
+<small>GCT018 · UFLA</small>
+</span>
+
+</a>
+
+
+<button class="menu-btn" aria-label="Abrir menu">
+☰
+</button>
+
+
+<nav class="nav">
+
+<a href="index.html#fundamentos">
+Fundamentos
+</a>
+
+<a href="index.html#probabilidade">
+Probabilidade
+</a>
+
+<a href="index.html#inferencia">
+Inferência
+</a>
+
+<a href="index.html#modelagem">
+Modelagem
+</a>
+
+<a href="index.html#aplicativos">
+Aplicativos
+</a>
+
+<a href="conteudos/referencias.html">
+Referências
+</a>
+
+</nav>
+
+</header>
+
+
+
+<main>
+
+
+<section class="hero">
+
+
+<div>
+
+<p class="eyebrow">
+GCT018 · ESTATÍSTICA: CONCEITOS E EXPERIMENTAÇÕES
+</p>
+
+
+<h1>
+Estatística para<br>
+<span>compreender dados.</span>
+</h1>
+
+
+<p class="lead">
+
+Um guia objetivo de Estatística e Probabilidade, com rigor matemático,
+exemplos de Engenharia, fórmulas em notação matemática e aplicações
+computacionais em R.
+
+</p>
+
+
+<div class="btns">
+
+<a class="btn primary" href="#conteudos">
+Explorar conteúdos
+</a>
+
+<a class="btn secondary" href="conteudos/referencias.html">
+Bibliografia
+</a>
+
+</div>
+
+</div>
+
+
+
+<aside class="hero-panel">
+
+<span class="tag" style="margin-bottom: 14px;">
+UFLA · ICTIN
+</span>
+
+
+<h3>
+Como usar este material?
+</h3>
+
+
+<p>
+
+Escolha um tema, leia a definição e a interpretação, acompanhe o exemplo
+e reproduza os comandos no R. As páginas de distribuições mostram
+parametrização, função de probabilidade ou densidade, função acumulada,
+momentos e simulação.
+
+</p>
+
+</aside>
+
+
+</section>
+
+
+
+<section class="section" id="conteudos">
+
+
+<div class="section-label">
+MAPA DE CONTEÚDOS
+</div>
+
+
+<div class="section-head">
+
+<h2>
+
+Da descrição dos dados à
+<span>inferência e modelagem.</span>
+
+</h2>
+
+
+<p>
+
+A organização segue a progressão da disciplina GCT018 e acrescenta
+tópicos úteis para consulta: vetores aleatórios contínuos, inferência
+para duas amostras, ANOVA e regressão múltipla.
+
+</p>
+
+</div>
+
+
+
+<div class="grid" id="fundamentos">
+
+
+<a class="card" href="conteudos/descritiva.html">
+
+<span class="num">
+01 · DADOS
+</span>
+
+<h3>
+Estatística descritiva
+</h3>
+
+<p>
+Tipos de variáveis, frequências, gráficos, posição, dispersão,
+associação e R.
+</p>
+
+</a>
+
+
+
+<a class="card" href="conteudos/amostragem.html">
+
+<span class="num">
+02 · AMOSTRAGEM
+</span>
+
+<h3>
+População e amostra
+</h3>
+
+<p>
+Planos amostrais, estatísticas, distribuições amostrais e
+Teorema Central do Limite.
+</p>
+
+</a>
+
+
+
+<a class="card"
+href="conteudos/probabilidade.html"
+id="probabilidade">
+
+<span class="num">
+03 · PROBABILIDADE
+</span>
+
+<h3>
+Fundamentos de probabilidade
+</h3>
+
+<p>
+Axiomas, eventos, condicionamento, independência,
+probabilidade total e Bayes.
+</p>
+
+</a>
+
+
+
+<a class="card"
+href="conteudos/variaveis-aleatorias.html">
+
+<span class="num">
+04 · VARIÁVEIS ALEATÓRIAS
+</span>
+
+<h3>
+VAD e VAC
+</h3>
+
+<p>
+Funções de probabilidade, densidade e distribuição,
+esperança, variância e famílias de distribuições.
+</p>
+
+</a>
+
+
+
+<a class="card"
+href="conteudos/vetores-aleatorios.html">
+
+<span class="num">
+05 · MULTIVARIADA
+</span>
+
+<h3>
+Vetores aleatórios
+</h3>
+
+<p>
+Distribuições conjuntas, marginais e condicionais,
+independência, covariância e correlação.
+</p>
+
+</a>
+
+
+
+<a class="card"
+href="conteudos/estimacao.html"
+id="inferencia">
+
+<span class="num">
+06 · ESTIMAÇÃO
+</span>
+
+<h3>
+Estimação pontual e intervalar
+</h3>
+
+<p>
+Estimadores, máxima verossimilhança, intervalos de confiança
+e bootstrap.
+</p>
+
+</a>
+
+
+
+<a class="card"
+href="conteudos/testes.html">
+
+<span class="num">
+07 · TESTES
+</span>
+
+<h3>
+Testes de hipóteses
+</h3>
+
+<p>
+Erros I e II, p-valor, média, variância, proporção
+e relação entre testes e IC.
+</p>
+
+</a>
+
+
+
+<a class="card"
+href="conteudos/duas-amostras.html">
+
+<span class="num">
+08 · DUAS AMOSTRAS
+</span>
+
+<h3>
+Comparações entre populações
+</h3>
+
+<p>
+Diferenças de médias e proporções, razão de variâncias
+e amostras pareadas.
+</p>
+
+</a>
+
+
+
+<a class="card"
+href="conteudos/anova.html"
+id="modelagem">
+
+<span class="num">
+09 · ANOVA
+</span>
+
+<h3>
+ANOVA one-way
+</h3>
+
+<p>
+Decomposição da variabilidade, teste F, pressupostos,
+pós-testes e R.
+</p>
+
+</a>
+
+
+
+<a class="card"
+href="conteudos/regressao.html">
+
+<span class="num">
+10 · REGRESSÃO
+</span>
+
+<h3>
+Regressão linear
+</h3>
+
+<p>
+Modelos simples e múltiplos, mínimos quadrados,
+inferência, diagnóstico e interpretação.
+</p>
+
+</a>
+
+
+
+<a class="card"
+href="conteudos/r-guia.html">
+
+<span class="num">
+11 · COMPUTAÇÃO
+</span>
+
+<h3>
+Guia rápido de R
+</h3>
+
+<p>
+Convenção d/p/q/r, estatística descritiva,
+testes, ANOVA e regressão.
+</p>
+
+</a>
+
+
+
+<a class="card"
+href="conteudos/referencias.html">
+
+<span class="num">
+12 · FONTES
+</span>
+
+<h3>
+Referências bibliográficas
+</h3>
+
+<p>
+Bibliografia usada na construção conceitual e
+computacional do material.
+</p>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     APLICATIVOS
+     ========================================================= -->
+
+
+<section class="aplicativos-section" id="aplicativos">
+
+
+<div class="aplicativos-head">
+
+<span class="aplicativos-label">
+APLICATIVOS
+</span>
+
+<h2>
+Laboratórios <span>interativos de Estatística.</span>
+</h2>
+
+<p>
+Explore conceitos probabilísticos e estatísticos de forma interativa.
+Altere parâmetros, observe o comportamento das distribuições e execute
+experimentos computacionais diretamente no navegador.
+</p>
+
+</div>
+
+
+
+<div class="aplicativos-grid">
+
+
 <!-- =========================================================
      APLICATIVO 1 — VAD
      ========================================================= -->
@@ -28,3 +786,175 @@ Abrir aplicativo →
 </span>
 
 </a>
+
+
+<!-- =========================================================
+     APLICATIVO 2 — VAC
+     ========================================================= -->
+
+<a
+class="aplicativo-card"
+href="https://01a0eef0-e269-38a3-e185-2e6fde382781.share.connect.posit.cloud/"
+target="_blank"
+rel="noopener noreferrer"
+>
+
+<span class="aplicativo-num">
+02 · VARIÁVEIS ALEATÓRIAS CONTÍNUAS
+</span>
+
+<h3>
+Distribuições VAC
+</h3>
+
+<p>
+Investigue distribuições contínuas, modifique seus parâmetros
+e visualize densidades, probabilidades, quantis, momentos e
+outras características das distribuições.
+</p>
+
+<span class="aplicativo-link">
+Abrir aplicativo →
+</span>
+
+</a>
+
+
+
+<!-- =========================================================
+     APLICATIVO 3 — DISTRIBUIÇÕES AMOSTRAIS
+     ========================================================= -->
+
+<div class="aplicativo-card indisponivel">
+
+<span class="aplicativo-num">
+03 · DISTRIBUIÇÕES AMOSTRAIS
+</span>
+
+<h3>
+Distribuições amostrais e TCL
+</h3>
+
+<p>
+Realize experimentos de simulação para estudar a distribuição
+da média amostral, da proporção amostral e da variância amostral,
+além de visualizar o Teorema Central do Limite.
+</p>
+
+<span class="aplicativo-link">
+Em breve
+</span>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PROFESSOR
+     ========================================================= -->
+
+
+<section class="professor-section">
+
+<a
+class="professor-card"
+href="https://cassiushenrique.github.io/sitePessoal/"
+target="_blank"
+rel="noopener noreferrer"
+>
+
+
+<img
+class="professor-photo"
+src="assets/img/cassius.jpg"
+alt="Prof. Dr. Cássius Henrique Xavier Oliveira"
+>
+
+
+<div class="professor-info">
+
+
+<span class="professor-label">
+SOBRE O PROFESSOR
+</span>
+
+
+<h2>
+Prof. Dr. Cássius Henrique Xavier Oliveira
+</h2>
+
+
+<p class="professor-cargo">
+Professor · ICTIN/UFLA
+</p>
+
+
+<p class="professor-descricao">
+
+Doutor em Estatística, Mestre e Graduado em Engenharia de Produção. Atua em Estatística
+Aplicada à Engenharia, modelagem probabilística, análise de dados,
+confiabilidade, análise de sobrevivência, métodos Bayesianos e
+outras aplicações quantitativas.
+
+</p>
+
+
+<span class="professor-link">
+Conheça minha trajetória, pesquisa e projetos →
+</span>
+
+
+</div>
+
+</a>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+
+<div>
+
+<strong>
+Estatística: Conceitos e Experimentações
+</strong>
+
+<br>
+
+Material de apoio · ICTIN/UFLA
+
+</div>
+
+
+
+<div>
+
+Prof. Dr. Cássius Henrique Xavier Oliveira
+
+<br>
+
+© <span id="year"></span>
+
+</div>
+
+
+</footer>
+
+
+
+<script src="assets/script.js"></script>
+
+
+</body>
+
+</html>
