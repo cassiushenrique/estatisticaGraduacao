@@ -1,19 +1,724 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#12372A"><title>Variáveis aleatórias discretas | Estatística GCT018</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/style.css"><script src="../assets/mathjax.js"></script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><header class="topbar"><a class="brand" href="../index.html"><span class="brand-mark">Σ</span><span><strong>Estatística</strong><small>GCT018 · UFLA</small></span></a><button class="menu-btn" aria-label="Abrir menu">☰</button><nav class="nav"><a href="../index.html#fundamentos">Fundamentos</a><a href="../index.html#probabilidade">Probabilidade</a><a href="../index.html#inferencia">Inferência</a><a href="../index.html#modelagem">Modelagem</a><a href="../conteudos/referencias.html">Referências</a></nav></header><main class="content"><div class="breadcrumbs"><a href="../index.html">Início</a> / Variáveis aleatórias discretas</div><p class="eyebrow">VAD</p><h1>Variáveis aleatórias discretas</h1><p class="lead">Distribuições para contagens e resultados enumeráveis, com atenção à interpretação dos parâmetros e à parametrização usada pelo R.</p><div class="dist-nav"><a href="#bernoulli">Bernoulli</a><a href="#uniforme">Uniforme discreta</a><a href="#binomial">Binomial</a><a href="#hiper">Hipergeométrica</a><a href="#poisson">Poisson</a><a href="#geometrica">Geométrica</a><a href="#nb">Binomial negativa</a></div><h2>Estrutura de uma VAD</h2><div class="mathbox">\[p_X(x)=P(X=x),\quad p_X(x)\ge0,\quad \sum_xp_X(x)=1.\] \[F_X(x)=P(X\le x)=\sum_{t\le x}p_X(t).\]</div>
-<section class="dist" id="bernoulli"><h2>Bernoulli</h2><p>Modela uma única tentativa com dois resultados, usualmente sucesso (1) e fracasso (0).</p><div class="mathbox">\[P(X=x)=p^x(1-p)^{1-x},\quad x\in\{0,1\},\quad 0\le p\le1.\] \[E(X)=p,\qquad Var(X)=p(1-p).\]</div><p>\(p\) é a probabilidade de sucesso. No R, Bernoulli é um caso particular da binomial com <code>size = 1</code>.</p><div class="rbox"><strong>R</strong><pre>dbinom(1, size=1, prob=0.08)
-rbinom(1000, size=1, prob=0.08)</pre></div></section>
-<section class="dist" id="uniforme"><h2>Uniforme discreta</h2><p>Todos os \(m\) valores do suporte têm a mesma probabilidade.</p><div class="mathbox">\[P(X=x_i)=\frac1m,\quad i=1,\ldots,m.\]</div><p>Não há uma função base específica para a uniforme discreta no R; pode-se usar <code>sample()</code>.</p><div class="rbox"><strong>R</strong><pre>sample(1:6, size=1000, replace=TRUE)</pre></div></section>
-<section class="dist" id="binomial"><h2>Binomial</h2><p>Conta sucessos em \(n\) ensaios de Bernoulli independentes com probabilidade constante \(p\).</p><div class="mathbox">\[P(X=x)=\binom nx p^x(1-p)^{n-x},\quad x=0,\ldots,n.\] \[E(X)=np,\qquad Var(X)=np(1-p).\]</div><p>\(n\) é o número de ensaios, \(p\) a probabilidade de sucesso e \(x\) o número observado de sucessos.</p><div class="plot"><img src="../assets/img/binomial-parametros.svg" alt="Efeito do parâmetro p na distribuição binomial"></div><div class="rbox"><strong>R · d/p/q/r</strong><pre>dbinom(4, size=10, prob=.3)       # P(X=4)
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#12372A">
+
+    <title>Variáveis aleatórias discretas | Estatística GCT018</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../assets/style.css">
+
+    <script src="../assets/mathjax.js"></script>
+
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABEÇALHO
+         ===================================================== -->
+
+    <header class="topbar">
+
+        <a class="brand" href="../index.html">
+
+            <span class="brand-mark">
+                Σ
+            </span>
+
+            <span>
+                <strong>Estatística</strong>
+                <small>GCT018 · UFLA</small>
+            </span>
+
+        </a>
+
+
+        <button class="menu-btn" aria-label="Abrir menu">
+            ☰
+        </button>
+
+
+        <nav class="nav">
+
+            <a href="../index.html#fundamentos">
+                Fundamentos
+            </a>
+
+            <a href="../index.html#probabilidade">
+                Probabilidade
+            </a>
+
+            <a href="../index.html#inferencia">
+                Inferência
+            </a>
+
+            <a href="../index.html#modelagem">
+                Modelagem
+            </a>
+
+            <a href="../conteudos/referencias.html">
+                Referências
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+         ===================================================== -->
+
+    <main class="content">
+
+
+        <!-- =================================================
+             NAVEGAÇÃO
+             ================================================= -->
+
+        <div class="breadcrumbs">
+
+            <a href="../index.html">
+                Início
+            </a>
+
+            / Variáveis aleatórias discretas
+
+        </div>
+
+
+        <p class="eyebrow">
+            VAD
+        </p>
+
+
+        <h1>
+            Variáveis aleatórias discretas
+        </h1>
+
+
+        <p class="lead">
+            Distribuições para contagens e resultados enumeráveis,
+            com atenção à interpretação dos parâmetros e à
+            parametrização usada pelo R.
+        </p>
+
+
+        <!-- =================================================
+             NAVEGAÇÃO ENTRE DISTRIBUIÇÕES
+             ================================================= -->
+
+        <div class="dist-nav">
+
+            <a href="#bernoulli">
+                Bernoulli
+            </a>
+
+            <a href="#uniforme">
+                Uniforme discreta
+            </a>
+
+            <a href="#binomial">
+                Binomial
+            </a>
+
+            <a href="#hiper">
+                Hipergeométrica
+            </a>
+
+            <a href="#poisson">
+                Poisson
+            </a>
+
+            <a href="#geometrica">
+                Geométrica
+            </a>
+
+            <a href="#nb">
+                Binomial negativa
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             ESTRUTURA DE UMA VAD
+             ================================================= -->
+
+        <h2>
+            Estrutura de uma VAD
+        </h2>
+
+
+        <div class="mathbox">
+
+            \[
+            \begin{aligned}
+            p_X(x) &= P(X=x), \\[6pt]
+            p_X(x) &\geq 0, \\[6pt]
+            \sum_x p_X(x) &= 1.
+            \end{aligned}
+            \]
+
+            \[
+            F_X(x)
+            =
+            P(X\leq x)
+            =
+            \sum_{t\leq x} p_X(t).
+            \]
+
+        </div>
+
+
+        <!-- =================================================
+             BERNOULLI
+             ================================================= -->
+
+        <section class="dist" id="bernoulli">
+
+            <h2>
+                Bernoulli
+            </h2>
+
+
+            <p>
+                Modela uma única tentativa com dois resultados,
+                usualmente sucesso (1) e fracasso (0).
+            </p>
+
+
+            <div class="mathbox">
+
+                \[
+                P(X=x)
+                =
+                p^x(1-p)^{1-x},
+                \qquad
+                x\in\{0,1\}.
+                \]
+
+                \[
+                0\leq p\leq 1.
+                \]
+
+                \[
+                \begin{aligned}
+                E(X) &= p, \\[6pt]
+                \operatorname{Var}(X) &= p(1-p).
+                \end{aligned}
+                \]
+
+            </div>
+
+
+            <p>
+                \(p\) é a probabilidade de sucesso. No R, Bernoulli
+                é um caso particular da binomial com
+                <code>size = 1</code>.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R
+                </strong>
+
+                <pre>dbinom(1, size=1, prob=0.08)
+rbinom(1000, size=1, prob=0.08)</pre>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             UNIFORME DISCRETA
+             ================================================= -->
+
+        <section class="dist" id="uniforme">
+
+            <h2>
+                Uniforme discreta
+            </h2>
+
+
+            <p>
+                Todos os \(m\) valores do suporte têm a mesma
+                probabilidade.
+            </p>
+
+
+            <div class="mathbox">
+
+                \[
+                P(X=x_i)
+                =
+                \frac{1}{m},
+                \qquad
+                i=1,\ldots,m.
+                \]
+
+            </div>
+
+
+            <p>
+                Não há uma função base específica para a uniforme
+                discreta no R; pode-se usar <code>sample()</code>.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R
+                </strong>
+
+                <pre>sample(1:6, size=1000, replace=TRUE)</pre>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             BINOMIAL
+             ================================================= -->
+
+        <section class="dist" id="binomial">
+
+            <h2>
+                Binomial
+            </h2>
+
+
+            <p>
+                Conta sucessos em \(n\) ensaios de Bernoulli
+                independentes com probabilidade constante \(p\).
+            </p>
+
+
+            <div class="mathbox">
+
+                \[
+                P(X=x)
+                =
+                \binom{n}{x}
+                p^x(1-p)^{n-x},
+                \]
+
+                \[
+                x=0,\ldots,n.
+                \]
+
+                \[
+                \begin{aligned}
+                E(X) &= np, \\[6pt]
+                \operatorname{Var}(X) &= np(1-p).
+                \end{aligned}
+                \]
+
+            </div>
+
+
+            <p>
+                \(n\) é o número de ensaios, \(p\) a probabilidade
+                de sucesso e \(x\) o número observado de sucessos.
+            </p>
+
+
+            <div class="plot">
+
+                <img
+                    src="../assets/img/binomial-parametros.svg"
+                    alt="Efeito do parâmetro p na distribuição binomial"
+                >
+
+            </div>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R · d/p/q/r
+                </strong>
+
+                <pre>dbinom(4, size=10, prob=.3)       # P(X=4)
 pbinom(4, size=10, prob=.3)       # P(X&lt;=4)
-qbinom(.95, size=10, prob=.3)      # quantil 0,95
-rbinom(1000, size=10, prob=.3)     # simulação</pre></div><div class="example"><strong>Aplicação.</strong> Se a probabilidade de uma peça ser defeituosa é 0,03 e 20 peças são inspecionadas independentemente, o número de defeituosas pode ser modelado por \(X\sim Bin(20,0{,}03)\).</div></section>
-<section class="dist" id="hiper"><h2>Hipergeométrica</h2><p>Conta sucessos em amostragem <strong>sem reposição</strong> de uma população finita.</p><div class="mathbox">\[P(X=x)=\frac{\binom Kx\binom{N-K}{n-x}}{\binom Nn}.\] \[E(X)=n\frac KN,\quad Var(X)=n\frac KN\left(1-\frac KN\right)\frac{N-n}{N-1}.\]</div><p>\(N\) é o tamanho da população, \(K\) o número de sucessos na população e \(n\) o tamanho da amostra. No R, <code>dhyper(x, m, n, k)</code> usa <code>m=K</code>, <code>n=N-K</code> e <code>k</code> como tamanho da amostra.</p><div class="rbox"><strong>R</strong><pre>dhyper(2, m=10, n=90, k=8)
+qbinom(.95, size=10, prob=.3)     # quantil 0,95
+rbinom(1000, size=10, prob=.3)    # simulação</pre>
+
+            </div>
+
+
+            <div class="example">
+
+                <strong>
+                    Aplicação.
+                </strong>
+
+                Se a probabilidade de uma peça ser defeituosa é
+                0,03 e 20 peças são inspecionadas independentemente,
+                o número de defeituosas pode ser modelado por
+
+                \[
+                X\sim \operatorname{Bin}(20,0{,}03).
+                \]
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             HIPERGEOMÉTRICA
+             ================================================= -->
+
+        <section class="dist" id="hiper">
+
+            <h2>
+                Hipergeométrica
+            </h2>
+
+
+            <p>
+                Conta sucessos em amostragem
+                <strong>sem reposição</strong>
+                de uma população finita.
+            </p>
+
+
+            <div class="mathbox">
+
+                \[
+                P(X=x)
+                =
+                \frac{
+                    \binom{K}{x}
+                    \binom{N-K}{n-x}
+                }{
+                    \binom{N}{n}
+                }.
+                \]
+
+                \[
+                E(X)
+                =
+                n\frac{K}{N}.
+                \]
+
+                \[
+                \operatorname{Var}(X)
+                =
+                n\frac{K}{N}
+                \left(1-\frac{K}{N}\right)
+                \frac{N-n}{N-1}.
+                \]
+
+            </div>
+
+
+            <p>
+                \(N\) é o tamanho da população, \(K\) o número
+                de sucessos na população e \(n\) o tamanho da amostra.
+
+                No R, <code>dhyper(x, m, n, k)</code> usa
+                <code>m=K</code>, <code>n=N-K</code> e
+                <code>k</code> como tamanho da amostra.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R
+                </strong>
+
+                <pre>dhyper(2, m=10, n=90, k=8)
 phyper(2, m=10, n=90, k=8)
-rhyper(1000, m=10, n=90, k=8)</pre></div></section>
-<section class="dist" id="poisson"><h2>Poisson</h2><p>Modela contagens de eventos em uma região de tempo, espaço ou exposição sob taxa média constante e hipóteses adequadas de ocorrência.</p><div class="mathbox">\[P(X=x)=e^{-\lambda}\frac{\lambda^x}{x!},\quad x=0,1,2,\ldots\] \[E(X)=Var(X)=\lambda.\]</div><p>\(\lambda&gt;0\) é o número médio de eventos na unidade considerada.</p><div class="plot"><img src="../assets/img/poisson-parametros.svg" alt="Efeito de lambda na distribuição de Poisson"></div><div class="rbox"><strong>R</strong><pre>dpois(3, lambda=2.5)
+rhyper(1000, m=10, n=90, k=8)</pre>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             POISSON
+             ================================================= -->
+
+        <section class="dist" id="poisson">
+
+            <h2>
+                Poisson
+            </h2>
+
+
+            <p>
+                Modela contagens de eventos em uma região de tempo,
+                espaço ou exposição sob taxa média constante e
+                hipóteses adequadas de ocorrência.
+            </p>
+
+
+            <div class="mathbox">
+
+                \[
+                P(X=x)
+                =
+                e^{-\lambda}
+                \frac{\lambda^x}{x!},
+                \]
+
+                \[
+                x=0,1,2,\ldots
+                \]
+
+                \[
+                \begin{aligned}
+                E(X) &= \lambda, \\[6pt]
+                \operatorname{Var}(X) &= \lambda.
+                \end{aligned}
+                \]
+
+            </div>
+
+
+            <p>
+                \(\lambda&gt;0\) é o número médio de eventos
+                na unidade considerada.
+            </p>
+
+
+            <div class="plot">
+
+                <img
+                    src="../assets/img/poisson-parametros.svg"
+                    alt="Efeito de lambda na distribuição de Poisson"
+                >
+
+            </div>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R
+                </strong>
+
+                <pre>dpois(3, lambda=2.5)
 ppois(3, lambda=2.5)
 qpois(.95, lambda=2.5)
-rpois(1000, lambda=2.5)</pre></div></section>
-<section class="dist" id="geometrica"><h2>Geométrica</h2><p>Modela o número de tentativas até o primeiro sucesso. Atenção à parametrização.</p><div class="mathbox">Se \(X\) é o número de tentativas até o primeiro sucesso, \[P(X=x)=(1-p)^{x-1}p,\quad x=1,2,\ldots\] \[E(X)=1/p,\quad Var(X)=(1-p)/p^2.\]</div><div class="note"><strong>Parametrização do R.</strong> <code>dgeom(x, prob)</code> usa \(x\) como o número de <em>fracassos antes do primeiro sucesso</em>, com suporte \(0,1,2,\ldots\). Portanto, para número de tentativas, use <code>dgeom(x-1,p)</code>.</div></section>
-<section class="dist" id="nb"><h2>Binomial negativa</h2><p>Uma parametrização comum conta o número de fracassos antes do \(r\)-ésimo sucesso.</p><div class="mathbox">\[P(X=x)=\binom{x+r-1}{x}p^r(1-p)^x,\quad x=0,1,\ldots\] \[E(X)=r\frac{1-p}{p},\quad Var(X)=r\frac{1-p}{p^2}.\]</div><p>Essa é a parametrização padrão de <code>dnbinom(x, size=r, prob=p)</code> no R. O R também aceita a parametrização por <code>mu</code>.</p><div class="rbox"><strong>R</strong><pre>dnbinom(5, size=3, prob=.4)
+rpois(1000, lambda=2.5)</pre>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             GEOMÉTRICA
+             ================================================= -->
+
+        <section class="dist" id="geometrica">
+
+            <h2>
+                Geométrica
+            </h2>
+
+
+            <p>
+                Modela o número de tentativas até o primeiro sucesso.
+                Atenção à parametrização.
+            </p>
+
+
+            <div class="mathbox">
+
+                <p>
+                    Se \(X\) é o número de tentativas até o
+                    primeiro sucesso,
+                </p>
+
+                \[
+                P(X=x)
+                =
+                (1-p)^{x-1}p,
+                \]
+
+                \[
+                x=1,2,\ldots
+                \]
+
+                \[
+                \begin{aligned}
+                E(X)
+                    &= \frac{1}{p}, \\[6pt]
+                \operatorname{Var}(X)
+                    &= \frac{1-p}{p^2}.
+                \end{aligned}
+                \]
+
+            </div>
+
+
+            <div class="note">
+
+                <strong>
+                    Parametrização do R.
+                </strong>
+
+                <code>dgeom(x, prob)</code> usa \(x\) como o número
+                de <em>fracassos antes do primeiro sucesso</em>,
+                com suporte \(0,1,2,\ldots\).
+
+                Portanto, para número de tentativas, use
+                <code>dgeom(x-1,p)</code>.
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             BINOMIAL NEGATIVA
+             ================================================= -->
+
+        <section class="dist" id="nb">
+
+            <h2>
+                Binomial negativa
+            </h2>
+
+
+            <p>
+                Uma parametrização comum conta o número de fracassos
+                antes do \(r\)-ésimo sucesso.
+            </p>
+
+
+            <div class="mathbox">
+
+                \[
+                P(X=x)
+                =
+                \binom{x+r-1}{x}
+                p^r(1-p)^x,
+                \]
+
+                \[
+                x=0,1,\ldots
+                \]
+
+                \[
+                E(X)
+                =
+                r\frac{1-p}{p}.
+                \]
+
+                \[
+                \operatorname{Var}(X)
+                =
+                r\frac{1-p}{p^2}.
+                \]
+
+            </div>
+
+
+            <p>
+                Essa é a parametrização padrão de
+                <code>dnbinom(x, size=r, prob=p)</code> no R.
+                O R também aceita a parametrização por
+                <code>mu</code>.
+            </p>
+
+
+            <div class="rbox">
+
+                <strong>
+                    R
+                </strong>
+
+                <pre>dnbinom(5, size=3, prob=.4)
 pnbinom(5, size=3, prob=.4)
-rnbinom(1000, size=3, prob=.4)</pre></div></section><div class="refbox">Referências: Walpole et al. (2009); Montgomery & Runger (2012); Devore (2018); documentação base do R, família Distributions.</div></main><footer><div><strong>Estatística: Conceitos e Experimentações</strong><br>Material de apoio · ICTIN/UFLA</div><div>Prof. Dr. Cássius Henrique Xavier Oliveira<br>© <span id="year"></span></div></footer><script src="../assets/script.js"></script></body></html>
+rnbinom(1000, size=3, prob=.4)</pre>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             REFERÊNCIAS
+             ================================================= -->
+
+        <div class="refbox">
+
+            Referências:
+            Walpole et al. (2009);
+            Montgomery &amp; Runger (2012);
+            Devore (2018);
+            documentação base do R, família Distributions.
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         RODAPÉ
+         ===================================================== -->
+
+    <footer>
+
+        <div>
+
+            <strong>
+                Estatística: Conceitos e Experimentações
+            </strong>
+
+            <br>
+
+            Material de apoio · ICTIN/UFLA
+
+        </div>
+
+
+        <div>
+
+            Prof. Dr. Cássius Henrique Xavier Oliveira
+
+            <br>
+
+            © <span id="year"></span>
+
+        </div>
+
+    </footer>
+
+
+    <script src="../assets/script.js"></script>
+
+
+</body>
+
+</html>
