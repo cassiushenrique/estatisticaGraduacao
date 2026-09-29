@@ -1,1 +1,362 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#12372A"><title>Vetores aleatórios | Estatística GCT018</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/style.css"><script src="../assets/mathjax.js"></script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><header class="topbar"><a class="brand" href="../index.html"><span class="brand-mark">Σ</span><span><strong>Estatística</strong><small>GCT018 · UFLA</small></span></a><button class="menu-btn" aria-label="Abrir menu">☰</button><nav class="nav"><a href="../index.html#fundamentos">Fundamentos</a><a href="../index.html#probabilidade">Probabilidade</a><a href="../index.html#inferencia">Inferência</a><a href="../index.html#modelagem">Modelagem</a><a href="../conteudos/referencias.html">Referências</a></nav></header><main class="content"><div class="breadcrumbs"><a href="../index.html">Início</a> / Vetores aleatórios</div><p class="eyebrow">DISTRIBUIÇÕES CONJUNTAS</p><h1>Vetores aleatórios</h1><p class="lead">Quando duas ou mais variáveis são observadas juntas, a distribuição conjunta descreve simultaneamente seus comportamentos e sua dependência.</p><h2>1. Distribuição conjunta</h2><p>Um vetor aleatório \((X,Y)\) descreve duas variáveis aleatórias observadas conjuntamente.</p><div class="mathbox">Discreto: \(p_{X,Y}(x,y)=P(X=x,Y=y)\).<br>Contínuo: \(f_{X,Y}(x,y)\ge0\) e \[\int\!\!\int_{\mathbb R^2}f_{X,Y}(x,y)dxdy=1.\]</div><h2>2. Marginais</h2><div class="mathbox">\[p_X(x)=\sum_y p_{X,Y}(x,y),\qquad f_X(x)=\int_{-\infty}^{\infty}f_{X,Y}(x,y)dy.\]</div><h2>3. Condicionais e independência</h2><div class="mathbox">\[p_{X\mid Y}(x\mid y)=\frac{p_{X,Y}(x,y)}{p_Y(y)},\qquad f_{X\mid Y}(x\mid y)=\frac{f_{X,Y}(x,y)}{f_Y(y)}.\]<p>Independência equivale à fatoração da conjunta: \(f_{X,Y}(x,y)=f_X(x)f_Y(y)\), ou à versão discreta análoga.</p></div><h2>4. Covariância e correlação</h2><div class="mathbox">\[Cov(X,Y)=E[(X-E(X))(Y-E(Y))],\qquad \rho=\frac{Cov(X,Y)}{\sigma_X\sigma_Y}.\]</div><div class="note">Correlação zero não implica independência em geral. Independência implica covariância zero quando os momentos necessários existem.</div><div class="refbox">Referências: Casella & Berger (2010); Devore (2018).</div></main><footer><div><strong>Estatística: Conceitos e Experimentações</strong><br>Material de apoio · ICTIN/UFLA</div><div>Prof. Dr. Cássius Henrique Xavier Oliveira<br>© <span id="year"></span></div></footer><script src="../assets/script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#12372A">
+
+    <title>Vetores aleatórios | Estatística GCT018</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../assets/style.css">
+
+    <script src="../assets/mathjax.js"></script>
+
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABEÇALHO
+         ===================================================== -->
+
+    <header class="topbar">
+
+        <a class="brand" href="../index.html">
+
+            <span class="brand-mark">
+                Σ
+            </span>
+
+            <span>
+                <strong>Estatística</strong>
+                <small>GCT018 · UFLA</small>
+            </span>
+
+        </a>
+
+
+        <button class="menu-btn" aria-label="Abrir menu">
+            ☰
+        </button>
+
+
+        <nav class="nav">
+
+            <a href="../index.html#fundamentos">
+                Fundamentos
+            </a>
+
+            <a href="../index.html#probabilidade">
+                Probabilidade
+            </a>
+
+            <a href="../index.html#inferencia">
+                Inferência
+            </a>
+
+            <a href="../index.html#modelagem">
+                Modelagem
+            </a>
+
+            <a href="../conteudos/referencias.html">
+                Referências
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+         ===================================================== -->
+
+    <main class="content">
+
+
+        <!-- =================================================
+             NAVEGAÇÃO
+             ================================================= -->
+
+        <div class="breadcrumbs">
+
+            <a href="../index.html">
+                Início
+            </a>
+
+            / Vetores aleatórios
+
+        </div>
+
+
+        <p class="eyebrow">
+            DISTRIBUIÇÕES CONJUNTAS
+        </p>
+
+
+        <h1>
+            Vetores aleatórios
+        </h1>
+
+
+        <p class="lead">
+            Quando duas ou mais variáveis são observadas juntas,
+            a distribuição conjunta descreve simultaneamente seus
+            comportamentos e sua dependência.
+        </p>
+
+
+        <!-- =================================================
+             1. DISTRIBUIÇÃO CONJUNTA
+             ================================================= -->
+
+        <h2>
+            1. Distribuição conjunta
+        </h2>
+
+
+        <p>
+            Um vetor aleatório \((X,Y)\) descreve duas variáveis
+            aleatórias observadas conjuntamente.
+        </p>
+
+
+        <div class="mathbox">
+
+            <p>
+                <strong>Discreto:</strong>
+            </p>
+
+            \[
+            p_{X,Y}(x,y)
+            =
+            P(X=x,Y=y).
+            \]
+
+
+            <p>
+                <strong>Contínuo:</strong>
+            </p>
+
+            \[
+            f_{X,Y}(x,y)\geq 0.
+            \]
+
+            \[
+            \int\!\!\int_{\mathbb{R}^2}
+            f_{X,Y}(x,y)\,dx\,dy
+            =
+            1.
+            \]
+
+        </div>
+
+
+        <!-- =================================================
+             2. MARGINAIS
+             ================================================= -->
+
+        <h2>
+            2. Marginais
+        </h2>
+
+
+        <div class="mathbox">
+
+            <p>
+                <strong>Caso discreto:</strong>
+            </p>
+
+            \[
+            p_X(x)
+            =
+            \sum_y p_{X,Y}(x,y).
+            \]
+
+
+            <p>
+                <strong>Caso contínuo:</strong>
+            </p>
+
+            \[
+            f_X(x)
+            =
+            \int_{-\infty}^{\infty}
+            f_{X,Y}(x,y)\,dy.
+            \]
+
+        </div>
+
+
+        <!-- =================================================
+             3. CONDICIONAIS E INDEPENDÊNCIA
+             ================================================= -->
+
+        <h2>
+            3. Condicionais e independência
+        </h2>
+
+
+        <div class="mathbox">
+
+            <p>
+                <strong>Caso discreto:</strong>
+            </p>
+
+            \[
+            p_{X\mid Y}(x\mid y)
+            =
+            \frac{
+                p_{X,Y}(x,y)
+            }{
+                p_Y(y)
+            }.
+            \]
+
+
+            <p>
+                <strong>Caso contínuo:</strong>
+            </p>
+
+            \[
+            f_{X\mid Y}(x\mid y)
+            =
+            \frac{
+                f_{X,Y}(x,y)
+            }{
+                f_Y(y)
+            }.
+            \]
+
+
+            <p>
+                Independência equivale à fatoração da conjunta:
+            </p>
+
+            \[
+            f_{X,Y}(x,y)
+            =
+            f_X(x)f_Y(y),
+            \]
+
+            <p>
+                ou à versão discreta análoga.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             4. COVARIÂNCIA E CORRELAÇÃO
+             ================================================= -->
+
+        <h2>
+            4. Covariância e correlação
+        </h2>
+
+
+        <div class="mathbox">
+
+            \[
+            \operatorname{Cov}(X,Y)
+            =
+            E\left[
+                (X-E(X))(Y-E(Y))
+            \right].
+            \]
+
+            \[
+            \rho
+            =
+            \frac{
+                \operatorname{Cov}(X,Y)
+            }{
+                \sigma_X\sigma_Y
+            }.
+            \]
+
+        </div>
+
+
+        <!-- =================================================
+             OBSERVAÇÃO
+             ================================================= -->
+
+        <div class="note">
+
+            Correlação zero não implica independência em geral.
+            Independência implica covariância zero quando os
+            momentos necessários existem.
+
+        </div>
+
+
+        <!-- =================================================
+             REFERÊNCIAS
+             ================================================= -->
+
+        <div class="refbox">
+
+            Referências:
+            Casella &amp; Berger (2010);
+            Devore (2018).
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         RODAPÉ
+         ===================================================== -->
+
+    <footer>
+
+        <div>
+
+            <strong>
+                Estatística: Conceitos e Experimentações
+            </strong>
+
+            <br>
+
+            Material de apoio · ICTIN/UFLA
+
+        </div>
+
+
+        <div>
+
+            Prof. Dr. Cássius Henrique Xavier Oliveira
+
+            <br>
+
+            © <span id="year"></span>
+
+        </div>
+
+    </footer>
+
+
+    <script src="../assets/script.js"></script>
+
+
+</body>
+
+</html>
