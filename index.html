@@ -21,6 +21,174 @@
 <style>
 
 /* =========================================================
+   SEÇÃO DE APLICATIVOS
+   ========================================================= */
+
+.aplicativos-section {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 30px 24px 90px;
+}
+
+.aplicativos-head {
+    margin-bottom: 34px;
+}
+
+.aplicativos-label {
+    display: inline-block;
+    margin-bottom: 14px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+
+    color: #1f5b43;
+}
+
+.aplicativos-head h2 {
+    margin: 0 0 12px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    line-height: 1.15;
+
+    color: #17201c;
+}
+
+.aplicativos-head h2 span {
+    color: #1f5b43;
+}
+
+.aplicativos-head p {
+    max-width: 760px;
+    margin: 0;
+
+    font-size: 1rem;
+    line-height: 1.7;
+
+    color: #5a655f;
+}
+
+.aplicativos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.aplicativo-card {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 300px;
+    padding: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(18, 55, 42, 0.12);
+    border-radius: 22px;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.aplicativo-card:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(18, 55, 42, 0.28);
+
+    box-shadow: 0 18px 38px rgba(18, 55, 42, 0.10);
+}
+
+.aplicativo-num {
+    display: inline-block;
+
+    margin-bottom: 22px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+
+    color: #1f5b43;
+}
+
+.aplicativo-card h3 {
+    margin: 0 0 14px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 1.35rem;
+    line-height: 1.25;
+
+    color: #12372A;
+}
+
+.aplicativo-card p {
+    margin: 0 0 26px;
+
+    font-size: 0.96rem;
+    line-height: 1.65;
+
+    color: #5a655f;
+}
+
+.aplicativo-link {
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: auto;
+
+    font-weight: 700;
+
+    color: #12372A;
+}
+
+.aplicativo-card:hover .aplicativo-link {
+    text-decoration: underline;
+}
+
+/* Aplicativos ainda não publicados */
+
+.aplicativo-card.indisponivel {
+    cursor: default;
+}
+
+.aplicativo-card.indisponivel:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.aplicativo-card.indisponivel .aplicativo-link {
+    color: #7a847f;
+    text-decoration: none;
+}
+
+@media (max-width: 900px) {
+
+    .aplicativos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .aplicativo-card {
+        min-height: auto;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .aplicativos-section {
+        padding: 20px 20px 65px;
+    }
+
+}
+
+
+/* =========================================================
    SEÇÃO DO PROFESSOR
    ========================================================= */
 
@@ -190,6 +358,10 @@ Inferência
 
 <a href="index.html#modelagem">
 Modelagem
+</a>
+
+<a href="index.html#aplicativos">
+Aplicativos
 </a>
 
 <a href="conteudos/referencias.html">
@@ -545,6 +717,131 @@ computacional do material.
 </p>
 
 </a>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     APLICATIVOS
+     ========================================================= -->
+
+
+<section class="aplicativos-section" id="aplicativos">
+
+
+<div class="aplicativos-head">
+
+<span class="aplicativos-label">
+APLICATIVOS
+</span>
+
+<h2>
+Laboratórios <span>interativos de Estatística.</span>
+</h2>
+
+<p>
+Explore conceitos probabilísticos e estatísticos de forma interativa.
+Altere parâmetros, observe o comportamento das distribuições e execute
+experimentos computacionais diretamente no navegador.
+</p>
+
+</div>
+
+
+
+<div class="aplicativos-grid">
+
+
+<!-- =========================================================
+     APLICATIVO 1 — VAD
+     ========================================================= -->
+
+<div class="aplicativo-card indisponivel">
+
+<span class="aplicativo-num">
+01 · VARIÁVEIS ALEATÓRIAS DISCRETAS
+</span>
+
+<h3>
+Distribuições VAD
+</h3>
+
+<p>
+Explore distribuições de variáveis aleatórias discretas,
+altere seus parâmetros e observe interativamente seus efeitos
+sobre probabilidades, momentos e o formato das distribuições.
+</p>
+
+<span class="aplicativo-link">
+Em breve
+</span>
+
+</div>
+
+
+
+<!-- =========================================================
+     APLICATIVO 2 — VAC
+     ========================================================= -->
+
+<a
+class="aplicativo-card"
+href="https://01a0eef0-e269-38a3-e185-2e6fde382781.share.connect.posit.cloud/"
+target="_blank"
+rel="noopener noreferrer"
+>
+
+<span class="aplicativo-num">
+02 · VARIÁVEIS ALEATÓRIAS CONTÍNUAS
+</span>
+
+<h3>
+Distribuições VAC
+</h3>
+
+<p>
+Investigue distribuições contínuas, modifique seus parâmetros
+e visualize densidades, probabilidades, quantis, momentos e
+outras características das distribuições.
+</p>
+
+<span class="aplicativo-link">
+Abrir aplicativo →
+</span>
+
+</a>
+
+
+
+<!-- =========================================================
+     APLICATIVO 3 — DISTRIBUIÇÕES AMOSTRAIS
+     ========================================================= -->
+
+<div class="aplicativo-card indisponivel">
+
+<span class="aplicativo-num">
+03 · DISTRIBUIÇÕES AMOSTRAIS
+</span>
+
+<h3>
+Distribuições amostrais e TCL
+</h3>
+
+<p>
+Realize experimentos de simulação para estudar a distribuição
+da média amostral, da proporção amostral e da variância amostral,
+além de visualizar o Teorema Central do Limite.
+</p>
+
+<span class="aplicativo-link">
+Em breve
+</span>
+
+</div>
 
 
 </div>
