@@ -1,1 +1,306 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#12372A"><title>Fundamentos de probabilidade | Estatística GCT018</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/style.css"><script src="../assets/mathjax.js"></script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><header class="topbar"><a class="brand" href="../index.html"><span class="brand-mark">Σ</span><span><strong>Estatística</strong><small>GCT018 · UFLA</small></span></a><button class="menu-btn" aria-label="Abrir menu">☰</button><nav class="nav"><a href="../index.html#fundamentos">Fundamentos</a><a href="../index.html#probabilidade">Probabilidade</a><a href="../index.html#inferencia">Inferência</a><a href="../index.html#modelagem">Modelagem</a><a href="../conteudos/referencias.html">Referências</a></nav></header><main class="content"><div class="breadcrumbs"><a href="../index.html">Início</a> / Fundamentos de probabilidade</div><p class="eyebrow">PROBABILIDADE</p><h1>Fundamentos de probabilidade</h1><p class="lead">A probabilidade formaliza a incerteza e fornece a base matemática da inferência estatística.</p><h2>1. Modelo probabilístico</h2><p>Um experimento aleatório possui resultados que não podem ser previstos com certeza antes da observação. O espaço amostral \(\Omega\) reúne os resultados possíveis e um evento \(A\) é um subconjunto de \(\Omega\).</p><div class="mathbox">Axiomas de Kolmogorov: \[P(A)\ge0,\qquad P(\Omega)=1,\qquad P\left(\bigcup_i A_i\right)=\sum_iP(A_i)\] para eventos \(A_i\) dois a dois disjuntos.</div><h2>2. Condicionamento e independência</h2><div class="mathbox">\[P(A\mid B)=\frac{P(A\cap B)}{P(B)},\quad P(B)&gt;0.\]<p>Eventos \(A\) e \(B\) são independentes quando \(P(A\cap B)=P(A)P(B)\).</p></div><h2>3. Probabilidade total e Bayes</h2><div class="mathbox">Se \(B_1,\ldots,B_k\) formam uma partição, \[P(A)=\sum_{j=1}^kP(A\mid B_j)P(B_j).\] Logo, \[P(B_j\mid A)=\frac{P(A\mid B_j)P(B_j)}{\sum_iP(A\mid B_i)P(B_i)}.\]</div><div class="example"><strong>Exemplo.</strong> Se 2% das peças vêm de uma linha com alta taxa de defeitos, Bayes permite atualizar a probabilidade de origem dessa linha depois de observar uma peça defeituosa.</div><div class="refbox">Referências: Walpole et al. (2009); Montgomery & Runger (2012); Devore (2018).</div></main><footer><div><strong>Estatística: Conceitos e Experimentações</strong><br>Material de apoio · ICTIN/UFLA</div><div>Prof. Dr. Cássius Henrique Xavier Oliveira<br>© <span id="year"></span></div></footer><script src="../assets/script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#12372A">
+
+    <title>Fundamentos de probabilidade | Estatística GCT018</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../assets/style.css">
+
+    <script src="../assets/mathjax.js"></script>
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABEÇALHO
+         ===================================================== -->
+
+    <header class="topbar">
+
+        <a class="brand" href="../index.html">
+
+            <span class="brand-mark">
+                Σ
+            </span>
+
+            <span>
+                <strong>Estatística</strong>
+                <small>GCT018 · UFLA</small>
+            </span>
+
+        </a>
+
+
+        <button class="menu-btn" aria-label="Abrir menu">
+            ☰
+        </button>
+
+
+        <nav class="nav">
+
+            <a href="../index.html#fundamentos">
+                Fundamentos
+            </a>
+
+            <a href="../index.html#probabilidade">
+                Probabilidade
+            </a>
+
+            <a href="../index.html#inferencia">
+                Inferência
+            </a>
+
+            <a href="../index.html#modelagem">
+                Modelagem
+            </a>
+
+            <a href="../conteudos/referencias.html">
+                Referências
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+         ===================================================== -->
+
+    <main class="content">
+
+
+        <!-- =================================================
+             NAVEGAÇÃO
+             ================================================= -->
+
+        <div class="breadcrumbs">
+
+            <a href="../index.html">
+                Início
+            </a>
+
+            / Fundamentos de probabilidade
+
+        </div>
+
+
+        <p class="eyebrow">
+            PROBABILIDADE
+        </p>
+
+
+        <h1>
+            Fundamentos de probabilidade
+        </h1>
+
+
+        <p class="lead">
+            A probabilidade formaliza a incerteza e fornece a base
+            matemática da inferência estatística.
+        </p>
+
+
+        <!-- =================================================
+             1. MODELO PROBABILÍSTICO
+             ================================================= -->
+
+        <h2>
+            1. Modelo probabilístico
+        </h2>
+
+
+        <p>
+            Um experimento aleatório possui resultados que não podem
+            ser previstos com certeza antes da observação. O espaço
+            amostral \(\Omega\) reúne os resultados possíveis e um
+            evento \(A\) é um subconjunto de \(\Omega\).
+        </p>
+
+
+        <div class="mathbox">
+
+            <p>
+                Axiomas de Kolmogorov:
+            </p>
+
+            \[
+            \begin{aligned}
+            P(A) &\geq 0, \\[6pt]
+            P(\Omega) &= 1, \\[6pt]
+            P\left(\bigcup_i A_i\right)
+                &= \sum_i P(A_i).
+            \end{aligned}
+            \]
+
+            <p>
+                A última propriedade é válida para eventos
+                \(A_i\) dois a dois disjuntos.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             2. CONDICIONAMENTO E INDEPENDÊNCIA
+             ================================================= -->
+
+        <h2>
+            2. Condicionamento e independência
+        </h2>
+
+
+        <div class="mathbox">
+
+            \[
+            P(A\mid B)
+            =
+            \frac{P(A\cap B)}
+                 {P(B)},
+            \qquad
+            P(B)>0.
+            \]
+
+            <p>
+                Eventos \(A\) e \(B\) são independentes quando
+            </p>
+
+            \[
+            P(A\cap B)
+            =
+            P(A)P(B).
+            \]
+
+        </div>
+
+
+        <!-- =================================================
+             3. PROBABILIDADE TOTAL E BAYES
+             ================================================= -->
+
+        <h2>
+            3. Probabilidade total e Bayes
+        </h2>
+
+
+        <div class="mathbox">
+
+            <p>
+                Se \(B_1,\ldots,B_k\) formam uma partição,
+            </p>
+
+            \[
+            P(A)
+            =
+            \sum_{j=1}^{k}
+            P(A\mid B_j)P(B_j).
+            \]
+
+            <p>
+                Logo,
+            </p>
+
+            \[
+            P(B_j\mid A)
+            =
+            \frac{
+                P(A\mid B_j)P(B_j)
+            }{
+                \displaystyle
+                \sum_i P(A\mid B_i)P(B_i)
+            }.
+            \]
+
+        </div>
+
+
+        <!-- =================================================
+             EXEMPLO
+             ================================================= -->
+
+        <div class="example">
+
+            <strong>
+                Exemplo.
+            </strong>
+
+            Se 2% das peças vêm de uma linha com alta taxa de defeitos,
+            Bayes permite atualizar a probabilidade de origem dessa linha
+            depois de observar uma peça defeituosa.
+
+        </div>
+
+
+        <!-- =================================================
+             REFERÊNCIAS
+             ================================================= -->
+
+        <div class="refbox">
+
+            Referências:
+            Walpole et al. (2009);
+            Montgomery &amp; Runger (2012);
+            Devore (2018).
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         RODAPÉ
+         ===================================================== -->
+
+    <footer>
+
+        <div>
+
+            <strong>
+                Estatística: Conceitos e Experimentações
+            </strong>
+
+            <br>
+
+            Material de apoio · ICTIN/UFLA
+
+        </div>
+
+
+        <div>
+
+            Prof. Dr. Cássius Henrique Xavier Oliveira
+
+            <br>
+
+            © <span id="year"></span>
+
+        </div>
+
+    </footer>
+
+
+    <script src="../assets/script.js"></script>
+
+
+</body>
+
+</html>
