@@ -25,9 +25,12 @@
    ========================================================= */
 
 .aplicativos-section {
+    width: 100%;
     max-width: 1180px;
     margin: 0 auto;
     padding: 30px 24px 90px;
+    grid-column: 1 / -1;
+    box-sizing: border-box;
 }
 
 .aplicativos-head {
@@ -72,14 +75,16 @@
 
 .aplicativos-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 22px;
+    width: 100%;
 }
 
 .aplicativo-card {
     display: flex;
     flex-direction: column;
 
+    min-width: 0;
     min-height: 300px;
     padding: 30px;
 
@@ -88,6 +93,7 @@
     border: 1px solid rgba(18, 55, 42, 0.12);
     border-radius: 22px;
 
+    box-sizing: border-box;
     text-decoration: none;
 
     transition:
@@ -151,22 +157,6 @@
     text-decoration: underline;
 }
 
-/* Aplicativos ainda não publicados */
-
-.aplicativo-card.indisponivel {
-    cursor: default;
-}
-
-.aplicativo-card.indisponivel:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-.aplicativo-card.indisponivel .aplicativo-link {
-    color: #7a847f;
-    text-decoration: none;
-}
-
 @media (max-width: 900px) {
 
     .aplicativos-grid {
@@ -193,17 +183,21 @@
    ========================================================= */
 
 .professor-section {
+    width: 100%;
     max-width: 1180px;
     margin: 0 auto;
     padding: 30px 24px 90px;
+    grid-column: 1 / -1;
+    box-sizing: border-box;
 }
 
 .professor-card {
     display: grid;
-    grid-template-columns: 190px 1fr;
+    grid-template-columns: 190px minmax(0, 1fr);
     gap: 38px;
     align-items: center;
 
+    width: 100%;
     padding: 38px;
 
     background: #12372A;
@@ -211,6 +205,7 @@
 
     border-radius: 28px;
 
+    box-sizing: border-box;
     text-decoration: none;
 
     transition:
@@ -236,6 +231,7 @@
 }
 
 .professor-info {
+    width: 100%;
     max-width: 720px;
 }
 
@@ -313,6 +309,17 @@
         height: 150px;
     }
 
+}
+
+
+/* =========================================================
+   GARANTIA DE LARGURA DAS SEÇÕES INDEPENDENTES
+   ========================================================= */
+
+main > .aplicativos-section,
+main > .professor-section {
+    grid-column: 1 / -1;
+    width: 100%;
 }
 
 </style>
@@ -760,7 +767,12 @@ experimentos computacionais diretamente no navegador.
      APLICATIVO 1 — VAD
      ========================================================= -->
 
-<div class="aplicativo-card indisponivel">
+<a
+class="aplicativo-card"
+href="https://01a0eefe-df92-6bdd-1e49-fde900e213c3.share.connect.posit.cloud/"
+target="_blank"
+rel="noopener noreferrer"
+>
 
 <span class="aplicativo-num">
 01 · VARIÁVEIS ALEATÓRIAS DISCRETAS
@@ -777,10 +789,10 @@ sobre probabilidades, momentos e o formato das distribuições.
 </p>
 
 <span class="aplicativo-link">
-Em breve
+Abrir aplicativo →
 </span>
 
-</div>
+</a>
 
 
 
@@ -815,6 +827,8 @@ Abrir aplicativo →
 
 </a>
 
+
+
 <!-- =========================================================
      APLICATIVO 3 — DISTRIBUIÇÕES AMOSTRAIS E TCL
      ========================================================= -->
@@ -845,8 +859,6 @@ Abrir aplicativo →
 </span>
 
 </a>
-
-
 
 
 </div>
