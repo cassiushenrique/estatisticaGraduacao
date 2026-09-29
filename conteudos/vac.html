@@ -1,33 +1,1585 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#12372A"><title>Variáveis aleatórias contínuas | Estatística GCT018</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/style.css"><script src="../assets/mathjax.js"></script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><header class="topbar"><a class="brand" href="../index.html"><span class="brand-mark">Σ</span><span><strong>Estatística</strong><small>GCT018 · UFLA</small></span></a><button class="menu-btn" aria-label="Abrir menu">☰</button><nav class="nav"><a href="../index.html#fundamentos">Fundamentos</a><a href="../index.html#probabilidade">Probabilidade</a><a href="../index.html#inferencia">Inferência</a><a href="../index.html#modelagem">Modelagem</a><a href="../conteudos/referencias.html">Referências</a></nav></header><main class="content"><div class="breadcrumbs"><a href="../index.html">Início</a> / Variáveis aleatórias contínuas</div><p class="eyebrow">VAC</p><h1>Variáveis aleatórias contínuas</h1><p class="lead">Distribuições para grandezas medidas em escala contínua. Probabilidades são obtidas pela área sob a densidade.</p><div class="dist-nav"><a href="#uniforme">Uniforme</a><a href="#exponencial">Exponencial</a><a href="#gama">Gama</a><a href="#normal">Normal</a><a href="#beta">Beta</a><a href="#weibull">Weibull</a><a href="#lognormal">Lognormal</a><a href="#chisq">Qui-quadrado</a></div><h2>Estrutura de uma VAC</h2><div class="mathbox">\[f_X(x)\ge0,\qquad \int_{-\infty}^{\infty}f_X(x)dx=1.\] \[P(a&lt;X&lt;b)=\int_a^bf_X(x)dx,\qquad F_X(x)=P(X\le x)=\int_{-\infty}^x f_X(t)dt.\]</div><div class="note">Para uma variável absolutamente contínua, \(P(X=x)=0\). A densidade \(f(x)\) não é uma probabilidade em um ponto; probabilidades são áreas.</div>
-<section class="dist" id="uniforme"><h2>Uniforme contínua</h2><p>Modela uma grandeza contínua quando intervalos de mesmo comprimento, dentro de um intervalo fixo, têm a mesma probabilidade.</p><div class="mathbox">Se \(X\sim U(a,b)\), \[f(x)=\begin{cases}\dfrac1{b-a},&a\le x\le b,\\0,&\text{caso contrário},\end{cases}\] \[F(x)=\begin{cases}0,&x<a,\\\dfrac{x-a}{b-a},&a\le x<b,\\1,&x\ge b,\end{cases}\] \[E(X)=\frac{a+b}{2},\quad \operatorname{Var}(X)=\frac{(b-a)^2}{12},\quad DP(X)=\frac{b-a}{\sqrt{12}}.\]</div><p><strong>Termos.</strong> \(X\) é a variável aleatória; \(x\) é um valor possível; \(a\) é o limite inferior; \(b\) é o limite superior, com \(a<b\); \(f(x)\) é a densidade; \(F(x)=P(X\le x)\) é a função de distribuição acumulada.</p><p><strong>Aplicação.</strong> Pode representar um instante de chegada dentro de uma janela de tempo quando, dentro dela, não há razão para privilegiar um instante específico.</p><div class="rbox"><strong>R · min = a; max = b</strong><pre>dunif(2, min=0, max=5)
-punif(2, min=0, max=5)
-qunif(.95, min=0, max=5)
-runif(1000, min=0, max=5)</pre></div></section>
-<section class="dist" id="exponencial"><h2>Exponencial</h2><p>É usada para tempos de espera não negativos quando a taxa instantânea de ocorrência é constante.</p><div class="mathbox">\[f(x)=\lambda e^{-\lambda x},\ x\ge0,\qquad F(x)=1-e^{-\lambda x},\] \[E(X)=1/\lambda,\quad \operatorname{Var}(X)=1/\lambda^2,\quad DP(X)=1/\lambda.\]</div><p><strong>Termos.</strong> \(\lambda>0\) é a taxa; \(x\ge0\) é o valor observado; \(e\) é a base dos logaritmos naturais; \(f(x)\) é a densidade e \(F(x)\) a acumulada.</p><p><strong>Efeito do parâmetro.</strong> Quanto maior \(\lambda\), menor o tempo médio e maior a concentração perto de zero.</p><div class="plot"><img src="../assets/img/exponencial-parametros.svg" alt="Efeito de lambda na exponencial"></div><p><strong>Aplicação.</strong> Tempo até uma falha sob taxa de falha constante ou tempo entre chegadas em um processo de Poisson homogêneo.</p><div class="rbox"><strong>R · rate = lambda</strong><pre>dexp(5, rate=.2)
-pexp(5, rate=.2)
-qexp(.95, rate=.2)
-rexp(1000, rate=.2)</pre></div></section>
-<section class="dist" id="gama"><h2>Gama</h2><p>Família flexível para grandezas positivas e assimétricas, particularmente tempos e durações.</p><div class="mathbox">Na parametrização forma–taxa, \[f(x)=\frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x},\ x>0,\] \[F(x)=\frac{\gamma(\alpha,\beta x)}{\Gamma(\alpha)},\quad E(X)=\frac{\alpha}{\beta},\quad \operatorname{Var}(X)=\frac{\alpha}{\beta^2},\quad DP(X)=\frac{\sqrt{\alpha}}{\beta}.\]</div><p><strong>Termos.</strong> \(\alpha>0\) é a forma; \(\beta>0\) é a taxa; \(\Gamma(\alpha)\) é a função gama; \(\gamma(\alpha,\beta x)\) é a gama incompleta inferior; \(x>0\). A escala é \(\theta=1/\beta\).</p><p><strong>Efeito dos parâmetros.</strong> \(\alpha\) altera forma e assimetria; \(\alpha=1\) produz a exponencial. Aumentar \(\beta\), mantendo \(\alpha\), comprime a distribuição.</p><div class="plot"><img src="../assets/img/gama-parametros.svg" alt="Efeito de forma e taxa na gama"></div><p><strong>Aplicação.</strong> Tempo acumulado até múltiplos eventos, duração de processos e outras variáveis positivas assimétricas.</p><div class="rbox"><strong>R · shape = alpha; rate = beta ou scale = 1/beta</strong><pre>dgamma(4, shape=3, rate=.5)
-pgamma(4, shape=3, rate=.5)
-qgamma(.95, shape=3, rate=.5)
-rgamma(1000, shape=3, rate=.5)</pre></div></section>
-<section class="dist" id="normal"><h2>Normal</h2><p>Distribuição simétrica em torno de \(\mu\), frequentemente usada para erros de medição e grandezas formadas pela soma de muitos pequenos efeitos.</p><div class="mathbox">\[f(x)=\frac1{\sigma\sqrt{2\pi}}\exp\!\left[-\frac{(x-\mu)^2}{2\sigma^2}\right],\ x\in\mathbb R,\] \[F(x)=\Phi\!\left(\frac{x-\mu}{\sigma}\right),\quad E(X)=\mu,\quad \operatorname{Var}(X)=\sigma^2,\quad DP(X)=\sigma.\]</div><p><strong>Termos.</strong> \(\mu\in\mathbb R\) é a média e localização; \(\sigma>0\) é o desvio-padrão; \(\sigma^2\) é a variância; \(\Phi\) é a acumulada da normal padrão; \(x\) é um valor possível.</p><p><strong>Efeito dos parâmetros.</strong> \(\mu\) desloca a curva; aumentar \(\sigma\) aumenta a dispersão e reduz o pico.</p><div class="plot"><img src="../assets/img/normal-parametros.svg" alt="Efeito de mu e sigma na normal"></div><p><strong>Aplicação.</strong> Erros de medição, características dimensionais de processos estáveis e médias amostrais sob condições do TCL.</p><div class="rbox"><strong>R · mean = mu; sd = sigma</strong><pre>dnorm(12, mean=10, sd=2)
-pnorm(12, mean=10, sd=2)
-qnorm(.975, mean=10, sd=2)
-rnorm(1000, mean=10, sd=2)</pre></div></section>
-<section class="dist" id="beta"><h2>Beta</h2><p>Família contínua em \((0,1)\), adequada para proporções contínuas e capaz de assumir formas muito distintas.</p><div class="mathbox">\[f(x)=\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)},\ 0<x<1,\qquad F(x)=I_x(\alpha,\beta),\] \[E(X)=\frac{\alpha}{\alpha+\beta},\quad \operatorname{Var}(X)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)},\quad DP(X)=\sqrt{\operatorname{Var}(X)}.\]</div><p><strong>Termos.</strong> \(\alpha,\beta>0\) são parâmetros de forma; \(B(\alpha,\beta)\) é a função beta; \(I_x(\alpha,\beta)\) é a beta incompleta regularizada; \(x\in(0,1)\).</p><p><strong>Efeito dos parâmetros.</strong> \(\alpha=\beta\) produz simetria; \(\alpha>\beta\) concentra mais massa em valores altos e \(\alpha<\beta\), em valores baixos.</p><div class="plot"><img src="../assets/img/beta-parametros.svg" alt="Efeito de alpha e beta na beta"></div><p><strong>Aplicação.</strong> Fração de utilização de capacidade, proporção de tempo de operação e outras quantidades contínuas limitadas entre 0 e 1.</p><div class="rbox"><strong>R · shape1 = alpha; shape2 = beta</strong><pre>dbeta(.4, shape1=2, shape2=5)
-pbeta(.4, shape1=2, shape2=5)
-qbeta(.95, shape1=2, shape2=5)
-rbeta(1000, shape1=2, shape2=5)</pre></div></section>
-<section class="dist" id="weibull"><h2>Weibull</h2><p>Distribuição amplamente usada em confiabilidade por permitir diferentes comportamentos da taxa de falha.</p><div class="mathbox">\[f(x)=\frac{k}{\lambda}\left(\frac{x}{\lambda}\right)^{k-1}e^{-(x/\lambda)^k},\ x\ge0,\qquad F(x)=1-e^{-(x/\lambda)^k},\] \[E(X)=\lambda\Gamma(1+1/k),\quad \operatorname{Var}(X)=\lambda^2[\Gamma(1+2/k)-\Gamma^2(1+1/k)],\quad DP(X)=\sqrt{\operatorname{Var}(X)}.\]</div><p><strong>Termos.</strong> \(k>0\) é a forma; \(\lambda>0\) é a escala; \(\Gamma(\cdot)\) é a função gama; \(x\ge0\) é o tempo ou medida observada.</p><p><strong>Efeito dos parâmetros.</strong> \(k<1\): taxa de falha decrescente; \(k=1\): exponencial; \(k>1\): taxa crescente. \(\lambda\) controla a escala temporal.</p><div class="plot"><img src="../assets/img/weibull-parametros.svg" alt="Efeito de forma e escala na Weibull"></div><p><strong>Aplicação.</strong> Vida útil de rolamentos, componentes mecânicos e eletrônicos.</p><div class="rbox"><strong>R · shape = k; scale = lambda</strong><pre>dweibull(100, shape=2, scale=120)
-pweibull(100, shape=2, scale=120)
-qweibull(.95, shape=2, scale=120)
-rweibull(1000, shape=2, scale=120)</pre></div></section>
-<section class="dist" id="lognormal"><h2>Lognormal</h2><p>Uma variável positiva \(X\) é lognormal quando seu logaritmo natural tem distribuição normal.</p><div class="mathbox">Se \(\log X\sim N(\mu,\sigma^2)\), \[f(x)=\frac1{x\sigma\sqrt{2\pi}}\exp\!\left[-\frac{(\ln x-\mu)^2}{2\sigma^2}\right],\ x>0,\] \[F(x)=\Phi\!\left(\frac{\ln x-\mu}{\sigma}\right),\quad E(X)=e^{\mu+\sigma^2/2},\quad \operatorname{Var}(X)=(e^{\sigma^2}-1)e^{2\mu+\sigma^2},\quad DP(X)=\sqrt{\operatorname{Var}(X)}.\]</div><p><strong>Termos.</strong> \(\mu\) é a média de \(\ln X\); \(\sigma>0\) é o desvio-padrão de \(\ln X\); \(\Phi\) é a acumulada normal padrão; \(\ln\) é o logaritmo natural.</p><p><strong>Efeito dos parâmetros.</strong> \(\mu\) desloca a distribuição na escala logarítmica; aumentar \(\sigma\) aumenta a dispersão e a assimetria à direita.</p><div class="plot"><img src="../assets/img/lognormal-parametros.svg" alt="Efeito dos parâmetros da lognormal"></div><p><strong>Aplicação.</strong> Tempos de reparo, tamanhos de partículas e grandezas positivas formadas por efeitos multiplicativos.</p><div class="note"><strong>R.</strong> <code>meanlog</code> e <code>sdlog</code> referem-se a \(\log X\), não a \(X\).</div><div class="rbox"><strong>R · meanlog = mu; sdlog = sigma</strong><pre>dlnorm(2, meanlog=0, sdlog=.5)
-plnorm(2, meanlog=0, sdlog=.5)
-qlnorm(.95, meanlog=0, sdlog=.5)
-rlnorm(1000, meanlog=0, sdlog=.5)</pre></div></section>
-<section class="dist" id="chisq"><h2>Qui-quadrado</h2><p>Família positiva determinada pelos graus de liberdade, central na inferência sobre variâncias de populações normais.</p><div class="mathbox">\[f(x)=\frac{x^{\nu/2-1}e^{-x/2}}{2^{\nu/2}\Gamma(\nu/2)},\ x>0,\qquad F(x)=P(X\le x),\] \[E(X)=\nu,\quad \operatorname{Var}(X)=2\nu,\quad DP(X)=\sqrt{2\nu}.\]</div><p><strong>Termos.</strong> \(\nu>0\) representa os graus de liberdade; \(\Gamma(\nu/2)\) é a função gama; \(x>0\) é o valor observado.</p><p><strong>Efeito do parâmetro.</strong> Com poucos graus de liberdade há forte assimetria à direita; à medida que \(\nu\) cresce, a distribuição se desloca para a direita e fica relativamente menos assimétrica.</p><div class="plot"><img src="../assets/img/chisq-parametros.svg" alt="Efeito dos graus de liberdade na qui-quadrado"></div><p><strong>Aplicação.</strong> Intervalos de confiança e testes para a variância de uma população normal.</p><div class="rbox"><strong>R · df = nu</strong><pre>dchisq(8, df=5)
-pchisq(8, df=5)
-qchisq(.95, df=5)
-rchisq(1000, df=5)</pre></div></section><div class="refbox">Referências: Montgomery & Runger (2012); Devore (2018); Casella & Berger (2010). Para a parametrização computacional, consulte a ajuda da versão do R utilizada por meio de <code>help("Distributions")</code> e da documentação de cada função, por exemplo <code>?dnorm</code>.</div></main><footer><div><strong>Estatística: Conceitos e Experimentações</strong><br>Material de apoio · ICTIN/UFLA</div><div>Prof. Dr. Cássius Henrique Xavier Oliveira<br>© <span id="year"></span></div></footer><script src="../assets/script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Variáveis aleatórias contínuas e principais distribuições de probabilidade."
+  >
+
+  <title>Variáveis Aleatórias Contínuas | Estatística e Probabilidade</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="../assets/style.css"
+  >
+
+  <script src="../assets/mathjax.js"></script>
+
+  <script
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+
+
+<body>
+
+<header class="topbar">
+
+  <a
+    class="brand"
+    href="../index.html"
+  >
+    <span class="brand-mark">Σ</span>
+
+    <span>
+      <strong>Estatística & Probabilidade</strong>
+      <small>GCT018 · UFLA</small>
+    </span>
+  </a>
+
+  <button
+    class="menu-btn"
+    aria-label="Abrir menu"
+    aria-expanded="false"
+  >
+    ☰
+  </button>
+
+  <nav
+    class="nav"
+    aria-label="Navegação principal"
+  >
+    <a href="../index.html">Início</a>
+    <a href="variaveis-aleatorias.html">Variáveis aleatórias</a>
+    <a href="vad.html">VAD</a>
+    <a href="vac.html">VAC</a>
+    <a href="r-guia.html">Guia R</a>
+  </nav>
+
+</header>
+
+
+<main class="content-page">
+
+  <!-- =========================================================
+       CABEÇALHO DA PÁGINA
+       ========================================================= -->
+
+  <section class="page-hero">
+
+    <p class="eyebrow">
+      VARIÁVEIS ALEATÓRIAS
+    </p>
+
+    <h1>
+      Variáveis Aleatórias Contínuas
+    </h1>
+
+    <p class="lead">
+      Definições, principais distribuições, interpretação dos
+      parâmetros, função de distribuição, aplicações e implementação
+      no R.
+    </p>
+
+  </section>
+
+
+  <!-- =========================================================
+       CONCEITOS FUNDAMENTAIS
+       ========================================================= -->
+
+  <section class="content-section">
+
+    <h2>1. Variável aleatória contínua</h2>
+
+    <p>
+      Uma variável aleatória contínua pode assumir valores em um
+      conjunto não enumerável, normalmente um intervalo ou uma união
+      de intervalos da reta real.
+    </p>
+
+    <p>
+      Sua distribuição pode ser descrita por uma
+      <strong>função densidade de probabilidade</strong>
+      \(f_X(x)\), que deve satisfazer
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      f_X(x)\geq 0
+      \]
+
+      e
+
+      \[
+      \int_{-\infty}^{\infty} f_X(x)\,dx=1.
+      \]
+
+    </div>
+
+    <p>
+      Para \(a&lt;b\), a probabilidade de \(X\) assumir um valor
+      entre \(a\) e \(b\) é
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      P(a&lt;X\leq b)
+      =
+      \int_a^b f_X(x)\,dx.
+      \]
+
+    </div>
+
+    <div class="note">
+
+      <strong>Atenção.</strong>
+      Para uma variável aleatória contínua,
+
+      \[
+      P(X=x)=0.
+      \]
+
+      Portanto, para probabilidades em intervalos, incluir ou excluir
+      um ponto isolado não altera o resultado.
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       FUNÇÃO DE DISTRIBUIÇÃO
+       ========================================================= -->
+
+  <section class="content-section">
+
+    <h2>2. Função de distribuição acumulada</h2>
+
+    <p>
+      A função de distribuição acumulada de \(X\) é definida por
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      F_X(x)
+      =
+      P(X\leq x)
+      =
+      \int_{-\infty}^{x}f_X(t)\,dt.
+      \]
+
+    </div>
+
+    <p>
+      Aqui, \(x\) é o valor no qual a função acumulada é avaliada e
+      \(t\) é apenas a variável de integração.
+    </p>
+
+    <p>
+      Quando \(F_X\) é diferenciável,
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      f_X(x)=\frac{d}{dx}F_X(x).
+      \]
+
+    </div>
+
+    <p>
+      Consequentemente,
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      P(a&lt;X\leq b)
+      =
+      F_X(b)-F_X(a).
+      \]
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       ESPERANÇA E VARIÂNCIA
+       ========================================================= -->
+
+  <section class="content-section">
+
+    <h2>3. Esperança, variância e desvio-padrão</h2>
+
+    <p>
+      Se as integrais envolvidas existirem, a esperança de uma
+      variável aleatória contínua é
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      E(X)
+      =
+      \int_{-\infty}^{\infty}
+      x f_X(x)\,dx.
+      \]
+
+    </div>
+
+    <p>
+      A variância é
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      \operatorname{Var}(X)
+      =
+      E\left[(X-\mu)^2\right],
+      \]
+
+      em que
+
+      \[
+      \mu=E(X).
+      \]
+
+    </div>
+
+    <p>
+      Uma forma equivalente e frequentemente mais conveniente é
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      \operatorname{Var}(X)
+      =
+      E(X^2)-[E(X)]^2.
+      \]
+
+    </div>
+
+    <p>
+      O desvio-padrão é
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      DP(X)
+      =
+      \sqrt{\operatorname{Var}(X)}.
+      \]
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       UNIFORME
+       ========================================================= -->
+
+  <section class="dist" id="uniforme">
+
+    <h2>4. Distribuição Uniforme Contínua</h2>
+
+    <p>
+      A distribuição uniforme contínua é adequada quando a variável
+      assume valores em um intervalo limitado e a densidade permanece
+      constante ao longo de todo esse intervalo.
+    </p>
+
+    <p>
+      Escrevemos
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      X\sim U(a,b),
+      \qquad a&lt;b.
+      \]
+
+    </div>
+
+    <h3>Função densidade</h3>
+
+    <div class="mathbox">
+
+      \[
+      f_X(x)=
+      \begin{cases}
+      \dfrac{1}{b-a},
+      &amp; a\leq x\leq b,\\[6pt]
+      0,
+      &amp; \text{caso contrário}.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Função de distribuição acumulada</h3>
+
+    <div class="mathbox">
+
+      \[
+      F_X(x)=
+      \begin{cases}
+      0,
+      &amp; x&lt;a,\\[6pt]
+      \dfrac{x-a}{b-a},
+      &amp; a\leq x&lt;b,\\[8pt]
+      1,
+      &amp; x\geq b.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Esperança, variância e desvio-padrão</h3>
+
+    <div class="mathbox">
+
+      \[
+      E(X)=\frac{a+b}{2},
+      \]
+
+      \[
+      \operatorname{Var}(X)
+      =
+      \frac{(b-a)^2}{12},
+      \]
+
+      \[
+      DP(X)
+      =
+      \frac{b-a}{\sqrt{12}}.
+      \]
+
+    </div>
+
+    <p>
+      <strong>Termos.</strong>
+      \(X\) é a variável aleatória; \(x\) representa um possível valor
+      de \(X\); \(a\) é o limite inferior; \(b\) é o limite superior;
+      \(f_X(x)\) é a densidade e \(F_X(x)=P(X\leq x)\) é a função
+      de distribuição acumulada.
+    </p>
+
+    <p>
+      <strong>Aplicação.</strong>
+      Pode ser usada para representar um instante de ocorrência dentro
+      de uma janela de tempo quando não existe razão para privilegiar
+      uma região específica do intervalo.
+    </p>
+
+    <div class="rbox">
+
+      <strong>R · min = a; max = b</strong>
+
+<pre>
+dunif(2, min = 0, max = 5)       # densidade em x = 2
+
+punif(2, min = 0, max = 5)       # P(X <= 2)
+
+punif(4, 0, 5) -
+  punif(1, 0, 5)                 # P(1 < X <= 4)
+
+qunif(0.95, min = 0, max = 5)    # quantil de ordem 0,95
+
+runif(1000, min = 0, max = 5)    # 1000 observações simuladas
+</pre>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       EXPONENCIAL
+       ========================================================= -->
+
+  <section class="dist" id="exponencial">
+
+    <h2>5. Distribuição Exponencial</h2>
+
+    <p>
+      A distribuição exponencial é frequentemente utilizada para
+      modelar tempos de espera não negativos quando a taxa instantânea
+      de ocorrência do evento é constante.
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      X\sim Exp(\lambda),
+      \qquad \lambda&gt;0.
+      \]
+
+    </div>
+
+    <h3>Função densidade</h3>
+
+    <div class="mathbox">
+
+      \[
+      f_X(x)=
+      \begin{cases}
+      \lambda e^{-\lambda x},
+      &amp; x\geq0,\\[6pt]
+      0,
+      &amp; x&lt;0.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Função de distribuição acumulada</h3>
+
+    <div class="mathbox">
+
+      \[
+      F_X(x)=
+      \begin{cases}
+      0,
+      &amp; x&lt;0,\\[6pt]
+      1-e^{-\lambda x},
+      &amp; x\geq0.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Esperança, variância e desvio-padrão</h3>
+
+    <div class="mathbox">
+
+      \[
+      E(X)=\frac{1}{\lambda},
+      \qquad
+      \operatorname{Var}(X)=\frac{1}{\lambda^2},
+      \qquad
+      DP(X)=\frac{1}{\lambda}.
+      \]
+
+    </div>
+
+    <p>
+      <strong>Termos.</strong>
+      \(\lambda\) é o parâmetro de taxa, com \(\lambda&gt;0\);
+      \(x\) representa um tempo ou outra grandeza não negativa;
+      \(e\) é a base do logaritmo natural;
+      \(f_X(x)\) é a densidade e \(F_X(x)\) é a função acumulada.
+    </p>
+
+    <p>
+      <strong>Efeito do parâmetro.</strong>
+      Quanto maior \(\lambda\), menor \(E(X)=1/\lambda\).
+      Assim, valores elevados da taxa produzem maior concentração da
+      distribuição próxima de zero.
+    </p>
+
+    <div class="plot">
+      <img
+        src="../assets/img/exponencial-parametros.svg"
+        alt="Efeito do parâmetro lambda na distribuição exponencial"
+      >
+    </div>
+
+    <p>
+      <strong>Aplicação.</strong>
+      Tempo entre chegadas em um processo de Poisson homogêneo ou
+      tempo até a falha de um componente quando se admite taxa de
+      falha constante.
+    </p>
+
+    <div class="rbox">
+
+      <strong>R · rate = lambda</strong>
+
+<pre>
+dexp(5, rate = 0.2)       # f(5)
+
+pexp(5, rate = 0.2)       # P(X <= 5)
+
+1 - pexp(5, rate = 0.2)   # P(X > 5)
+
+qexp(0.95, rate = 0.2)    # quantil
+
+rexp(1000, rate = 0.2)    # simulação
+</pre>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       GAMA
+       ========================================================= -->
+
+  <section class="dist" id="gama">
+
+    <h2>6. Distribuição Gama</h2>
+
+    <p>
+      A distribuição Gama é uma família flexível para variáveis
+      positivas e pode assumir diferentes graus de assimetria.
+    </p>
+
+    <p>
+      Na parametrização <strong>forma–taxa</strong>,
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      X\sim Gamma(\alpha,\beta),
+      \qquad
+      \alpha&gt;0,\quad\beta&gt;0.
+      \]
+
+    </div>
+
+    <h3>Função densidade</h3>
+
+    <div class="mathbox">
+
+      \[
+      f_X(x)=
+      \begin{cases}
+      \dfrac{\beta^\alpha}{\Gamma(\alpha)}
+      x^{\alpha-1}e^{-\beta x},
+      &amp; x&gt;0,\\[8pt]
+      0,
+      &amp; x\leq0.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Função de distribuição acumulada</h3>
+
+    <div class="mathbox">
+
+      \[
+      F_X(x)
+      =
+      \frac{\gamma(\alpha,\beta x)}
+           {\Gamma(\alpha)},
+      \qquad x&gt;0.
+      \]
+
+    </div>
+
+    <p>
+      Para \(x\leq0\), \(F_X(x)=0\).
+    </p>
+
+    <h3>Esperança, variância e desvio-padrão</h3>
+
+    <div class="mathbox">
+
+      \[
+      E(X)=\frac{\alpha}{\beta},
+      \]
+
+      \[
+      \operatorname{Var}(X)
+      =
+      \frac{\alpha}{\beta^2},
+      \]
+
+      \[
+      DP(X)
+      =
+      \frac{\sqrt{\alpha}}{\beta}.
+      \]
+
+    </div>
+
+    <p>
+      <strong>Termos.</strong>
+      \(\alpha\) é o parâmetro de forma;
+      \(\beta\) é o parâmetro de taxa;
+      \(\Gamma(\alpha)\) é a função Gama;
+      \(\gamma(\alpha,\beta x)\) é a função Gama incompleta inferior;
+      \(x\) é um valor positivo da variável.
+    </p>
+
+    <p>
+      Uma parametrização alternativa utiliza a
+      <strong>escala</strong>
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      \theta=\frac{1}{\beta}.
+      \]
+
+    </div>
+
+    <p>
+      Nesse caso,
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      E(X)=\alpha\theta,
+      \qquad
+      \operatorname{Var}(X)=\alpha\theta^2.
+      \]
+
+    </div>
+
+    <p>
+      <strong>Efeito dos parâmetros.</strong>
+      O parâmetro \(\alpha\) altera a forma da distribuição.
+      Quando \(\alpha=1\), a distribuição Gama se reduz à
+      Exponencial. Mantendo \(\alpha\) fixo, aumentar a taxa
+      \(\beta\) comprime a distribuição em direção a zero.
+    </p>
+
+    <div class="plot">
+      <img
+        src="../assets/img/gama-parametros.svg"
+        alt="Efeito dos parâmetros da distribuição Gama"
+      >
+    </div>
+
+    <p>
+      <strong>Aplicação.</strong>
+      Pode modelar tempos acumulados até a ocorrência de eventos,
+      durações de processos e outras grandezas positivas assimétricas.
+    </p>
+
+    <div class="rbox">
+
+      <strong>
+        R · shape = alpha; rate = beta ou scale = theta
+      </strong>
+
+<pre>
+dgamma(4, shape = 3, rate = 0.5)
+
+pgamma(4, shape = 3, rate = 0.5)
+
+qgamma(0.95, shape = 3, rate = 0.5)
+
+rgamma(1000, shape = 3, rate = 0.5)
+
+# parametrização equivalente por escala:
+dgamma(4, shape = 3, scale = 2)
+</pre>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       NORMAL
+       ========================================================= -->
+
+  <section class="dist" id="normal">
+
+    <h2>7. Distribuição Normal</h2>
+
+    <p>
+      A distribuição Normal é contínua, simétrica e definida em toda
+      a reta real. É uma das distribuições centrais da Estatística.
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      X\sim N(\mu,\sigma^2),
+      \qquad
+      \mu\in\mathbb{R},
+      \quad
+      \sigma&gt;0.
+      \]
+
+    </div>
+
+    <h3>Função densidade</h3>
+
+    <div class="mathbox">
+
+      \[
+      f_X(x)
+      =
+      \frac{1}{\sigma\sqrt{2\pi}}
+      \exp\left\{
+      -\frac{(x-\mu)^2}{2\sigma^2}
+      \right\},
+      \qquad
+      x\in\mathbb{R}.
+      \]
+
+    </div>
+
+    <h3>Função de distribuição acumulada</h3>
+
+    <div class="mathbox">
+
+      \[
+      F_X(x)
+      =
+      \Phi\left(
+      \frac{x-\mu}{\sigma}
+      \right),
+      \]
+
+    </div>
+
+    <p>
+      em que \(\Phi(\cdot)\) é a função de distribuição acumulada
+      da Normal padrão.
+    </p>
+
+    <h3>Esperança, variância e desvio-padrão</h3>
+
+    <div class="mathbox">
+
+      \[
+      E(X)=\mu,
+      \qquad
+      \operatorname{Var}(X)=\sigma^2,
+      \qquad
+      DP(X)=\sigma.
+      \]
+
+    </div>
+
+    <p>
+      <strong>Termos.</strong>
+      \(\mu\) é a média e determina a localização da distribuição;
+      \(\sigma\) é o desvio-padrão;
+      \(\sigma^2\) é a variância;
+      \(x\) representa um possível valor da variável;
+      \(\Phi\) representa a acumulada da Normal padrão.
+    </p>
+
+    <p>
+      <strong>Efeito dos parâmetros.</strong>
+      Alterar \(\mu\) desloca a distribuição horizontalmente.
+      Aumentar \(\sigma\) aumenta a dispersão e reduz a altura máxima
+      da densidade.
+    </p>
+
+    <div class="plot">
+      <img
+        src="../assets/img/normal-parametros.svg"
+        alt="Efeito da média e do desvio-padrão na distribuição Normal"
+      >
+    </div>
+
+    <p>
+      <strong>Aplicação.</strong>
+      Erros de medição, características dimensionais de processos
+      aproximadamente estáveis e, sob condições apropriadas,
+      distribuições de médias amostrais.
+    </p>
+
+    <div class="rbox">
+
+      <strong>R · mean = mu; sd = sigma</strong>
+
+<pre>
+dnorm(12, mean = 10, sd = 2)
+
+pnorm(12, mean = 10, sd = 2)       # P(X <= 12)
+
+1 - pnorm(12, mean = 10, sd = 2)   # P(X > 12)
+
+pnorm(12, 10, 2) -
+  pnorm(8, 10, 2)                  # P(8 < X <= 12)
+
+qnorm(0.975, mean = 10, sd = 2)
+
+rnorm(1000, mean = 10, sd = 2)
+</pre>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       BETA
+       ========================================================= -->
+
+  <section class="dist" id="beta">
+
+    <h2>8. Distribuição Beta</h2>
+
+    <p>
+      A distribuição Beta é definida no intervalo \((0,1)\) e é
+      bastante flexível. Por isso, pode ser útil para representar
+      proporções contínuas.
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      X\sim Beta(\alpha,\beta),
+      \qquad
+      \alpha&gt;0,
+      \quad
+      \beta&gt;0.
+      \]
+
+    </div>
+
+    <h3>Função densidade</h3>
+
+    <div class="mathbox">
+
+      \[
+      f_X(x)=
+      \begin{cases}
+      \dfrac{
+      x^{\alpha-1}(1-x)^{\beta-1}
+      }{
+      B(\alpha,\beta)
+      },
+      &amp; 0&lt;x&lt;1,\\[10pt]
+      0,
+      &amp; \text{caso contrário}.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Função de distribuição acumulada</h3>
+
+    <div class="mathbox">
+
+      \[
+      F_X(x)
+      =
+      I_x(\alpha,\beta),
+      \qquad
+      0&lt;x&lt;1.
+      \]
+
+    </div>
+
+    <p>
+      Além disso, \(F_X(x)=0\) para \(x\leq0\) e
+      \(F_X(x)=1\) para \(x\geq1\).
+    </p>
+
+    <h3>Esperança, variância e desvio-padrão</h3>
+
+    <div class="mathbox">
+
+      \[
+      E(X)
+      =
+      \frac{\alpha}{\alpha+\beta},
+      \]
+
+      \[
+      \operatorname{Var}(X)
+      =
+      \frac{
+      \alpha\beta
+      }{
+      (\alpha+\beta)^2
+      (\alpha+\beta+1)
+      },
+      \]
+
+      \[
+      DP(X)
+      =
+      \sqrt{
+      \frac{
+      \alpha\beta
+      }{
+      (\alpha+\beta)^2
+      (\alpha+\beta+1)
+      }
+      }.
+      \]
+
+    </div>
+
+    <p>
+      <strong>Termos.</strong>
+      \(\alpha\) e \(\beta\) são parâmetros positivos de forma;
+      \(B(\alpha,\beta)\) é a função Beta;
+      \(I_x(\alpha,\beta)\) é a função Beta incompleta regularizada;
+      \(x\) pertence ao intervalo \((0,1)\).
+    </p>
+
+    <p>
+      <strong>Efeito dos parâmetros.</strong>
+      Quando \(\alpha=\beta\), a distribuição é simétrica em torno
+      de \(0{,}5\). Quando \(\alpha&gt;\beta\), há maior concentração
+      em valores altos; quando \(\alpha&lt;\beta\), a concentração
+      tende a ocorrer em valores menores. Diferentes combinações
+      podem produzir formatos bastante distintos.
+    </p>
+
+    <div class="plot">
+      <img
+        src="../assets/img/beta-parametros.svg"
+        alt="Efeito dos parâmetros alpha e beta na distribuição Beta"
+      >
+    </div>
+
+    <p>
+      <strong>Aplicação.</strong>
+      Proporção contínua de utilização de capacidade, fração do tempo
+      em operação e outras grandezas contínuas naturalmente limitadas
+      ao intervalo entre 0 e 1.
+    </p>
+
+    <div class="rbox">
+
+      <strong>R · shape1 = alpha; shape2 = beta</strong>
+
+<pre>
+dbeta(0.4, shape1 = 2, shape2 = 5)
+
+pbeta(0.4, shape1 = 2, shape2 = 5)
+
+qbeta(0.95, shape1 = 2, shape2 = 5)
+
+rbeta(1000, shape1 = 2, shape2 = 5)
+</pre>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       WEIBULL
+       ========================================================= -->
+
+  <section class="dist" id="weibull">
+
+    <h2>9. Distribuição Weibull</h2>
+
+    <p>
+      A distribuição Weibull é particularmente importante em
+      confiabilidade e análise de tempos até falha porque seu
+      parâmetro de forma permite representar diferentes comportamentos
+      da taxa de falha.
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      X\sim Weibull(k,\lambda),
+      \qquad
+      k&gt;0,
+      \quad
+      \lambda&gt;0.
+      \]
+
+    </div>
+
+    <h3>Função densidade</h3>
+
+    <div class="mathbox">
+
+      \[
+      f_X(x)=
+      \begin{cases}
+      \dfrac{k}{\lambda}
+      \left(
+      \dfrac{x}{\lambda}
+      \right)^{k-1}
+      \exp\left[
+      -\left(
+      \dfrac{x}{\lambda}
+      \right)^k
+      \right],
+      &amp; x\geq0,\\[12pt]
+      0,
+      &amp; x&lt;0.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Função de distribuição acumulada</h3>
+
+    <div class="mathbox">
+
+      \[
+      F_X(x)=
+      \begin{cases}
+      0,
+      &amp; x&lt;0,\\[6pt]
+      1-
+      \exp\left[
+      -\left(
+      \dfrac{x}{\lambda}
+      \right)^k
+      \right],
+      &amp; x\geq0.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Esperança, variância e desvio-padrão</h3>
+
+    <div class="mathbox">
+
+      \[
+      E(X)
+      =
+      \lambda
+      \Gamma\left(
+      1+\frac{1}{k}
+      \right),
+      \]
+
+      \[
+      \operatorname{Var}(X)
+      =
+      \lambda^2
+      \left[
+      \Gamma\left(
+      1+\frac{2}{k}
+      \right)
+      -
+      \Gamma^2\left(
+      1+\frac{1}{k}
+      \right)
+      \right],
+      \]
+
+      \[
+      DP(X)
+      =
+      \sqrt{\operatorname{Var}(X)}.
+      \]
+
+    </div>
+
+    <p>
+      <strong>Termos.</strong>
+      \(k\) é o parâmetro de forma;
+      \(\lambda\) é o parâmetro de escala;
+      \(\Gamma(\cdot)\) representa a função Gama;
+      \(x\) é uma grandeza não negativa, frequentemente um tempo
+      até falha.
+    </p>
+
+    <p>
+      <strong>Efeito dos parâmetros.</strong>
+      Na parametrização apresentada, \(k&lt;1\) corresponde a taxa
+      de falha decrescente, \(k=1\) produz a distribuição Exponencial
+      e \(k&gt;1\) corresponde a taxa de falha crescente.
+      O parâmetro \(\lambda\) controla a escala da distribuição.
+    </p>
+
+    <div class="plot">
+      <img
+        src="../assets/img/weibull-parametros.svg"
+        alt="Efeito dos parâmetros de forma e escala na distribuição Weibull"
+      >
+    </div>
+
+    <p>
+      <strong>Aplicação.</strong>
+      Vida útil de rolamentos, componentes mecânicos, componentes
+      eletrônicos e outros sistemas sujeitos a falhas.
+    </p>
+
+    <div class="rbox">
+
+      <strong>R · shape = k; scale = lambda</strong>
+
+<pre>
+dweibull(100, shape = 2, scale = 120)
+
+pweibull(100, shape = 2, scale = 120)
+
+1 - pweibull(100, shape = 2, scale = 120)
+
+qweibull(0.95, shape = 2, scale = 120)
+
+rweibull(1000, shape = 2, scale = 120)
+</pre>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       LOGNORMAL
+       ========================================================= -->
+
+  <section class="dist" id="lognormal">
+
+    <h2>10. Distribuição Lognormal</h2>
+
+    <p>
+      Uma variável aleatória positiva \(X\) possui distribuição
+      Lognormal quando seu logaritmo natural possui distribuição
+      Normal.
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      \ln(X)\sim N(\mu,\sigma^2),
+      \qquad
+      \sigma&gt;0.
+      \]
+
+    </div>
+
+    <h3>Função densidade</h3>
+
+    <div class="mathbox">
+
+      \[
+      f_X(x)=
+      \begin{cases}
+      \dfrac{1}
+      {x\sigma\sqrt{2\pi}}
+      \exp\left[
+      -\dfrac{(\ln x-\mu)^2}
+      {2\sigma^2}
+      \right],
+      &amp; x&gt;0,\\[12pt]
+      0,
+      &amp; x\leq0.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Função de distribuição acumulada</h3>
+
+    <div class="mathbox">
+
+      \[
+      F_X(x)=
+      \begin{cases}
+      0,
+      &amp; x\leq0,\\[6pt]
+      \Phi\left(
+      \dfrac{\ln x-\mu}{\sigma}
+      \right),
+      &amp; x&gt;0.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Esperança, variância e desvio-padrão</h3>
+
+    <div class="mathbox">
+
+      \[
+      E(X)
+      =
+      e^{\mu+\sigma^2/2},
+      \]
+
+      \[
+      \operatorname{Var}(X)
+      =
+      \left(
+      e^{\sigma^2}-1
+      \right)
+      e^{2\mu+\sigma^2},
+      \]
+
+      \[
+      DP(X)
+      =
+      \sqrt{
+      \left(
+      e^{\sigma^2}-1
+      \right)
+      e^{2\mu+\sigma^2}
+      }.
+      \]
+
+    </div>
+
+    <p>
+      <strong>Termos.</strong>
+      \(\mu\) é a média de \(\ln X\);
+      \(\sigma\) é o desvio-padrão de \(\ln X\);
+      \(\sigma^2\) é a variância de \(\ln X\);
+      \(\Phi\) é a função acumulada da Normal padrão;
+      \(\ln\) representa o logaritmo natural.
+    </p>
+
+    <p>
+      <strong>Efeito dos parâmetros.</strong>
+      \(\mu\) controla a localização na escala logarítmica.
+      O aumento de \(\sigma\) produz maior dispersão e, em geral,
+      maior assimetria à direita na escala original de \(X\).
+    </p>
+
+    <div class="plot">
+      <img
+        src="../assets/img/lognormal-parametros.svg"
+        alt="Efeito dos parâmetros da distribuição Lognormal"
+      >
+    </div>
+
+    <p>
+      <strong>Aplicação.</strong>
+      Tempos de reparo, tamanhos de partículas e outras grandezas
+      positivas geradas por efeitos aproximadamente multiplicativos.
+    </p>
+
+    <div class="note">
+
+      <strong>Parametrização do R.</strong>
+      Em <code>dlnorm()</code>, <code>plnorm()</code>,
+      <code>qlnorm()</code> e <code>rlnorm()</code>,
+      <code>meanlog</code> e <code>sdlog</code> são,
+      respectivamente, a média e o desvio-padrão de
+      \(\ln X\), e não de \(X\).
+
+    </div>
+
+    <div class="rbox">
+
+      <strong>R · meanlog = mu; sdlog = sigma</strong>
+
+<pre>
+dlnorm(2, meanlog = 0, sdlog = 0.5)
+
+plnorm(2, meanlog = 0, sdlog = 0.5)
+
+qlnorm(0.95, meanlog = 0, sdlog = 0.5)
+
+rlnorm(1000, meanlog = 0, sdlog = 0.5)
+</pre>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       QUI-QUADRADO
+       ========================================================= -->
+
+  <section class="dist" id="chisq">
+
+    <h2>11. Distribuição Qui-quadrado</h2>
+
+    <p>
+      A distribuição Qui-quadrado é uma distribuição contínua
+      positiva determinada pelos graus de liberdade. Ela possui papel
+      importante na inferência estatística, especialmente em
+      procedimentos relacionados à variância.
+    </p>
+
+    <div class="mathbox">
+
+      \[
+      X\sim\chi^2_{\nu},
+      \qquad
+      \nu&gt;0.
+      \]
+
+    </div>
+
+    <h3>Função densidade</h3>
+
+    <div class="mathbox">
+
+      \[
+      f_X(x)=
+      \begin{cases}
+      \dfrac{
+      x^{\nu/2-1}e^{-x/2}
+      }{
+      2^{\nu/2}\Gamma(\nu/2)
+      },
+      &amp; x&gt;0,\\[10pt]
+      0,
+      &amp; x\leq0.
+      \end{cases}
+      \]
+
+    </div>
+
+    <h3>Função de distribuição acumulada</h3>
+
+    <div class="mathbox">
+
+      \[
+      F_X(x)
+      =
+      P(X\leq x).
+      \]
+
+    </div>
+
+    <p>
+      Sua forma analítica pode ser expressa por meio da função Gama
+      incompleta. Na prática, probabilidades e quantis são normalmente
+      calculados numericamente.
+    </p>
+
+    <h3>Esperança, variância e desvio-padrão</h3>
+
+    <div class="mathbox">
+
+      \[
+      E(X)=\nu,
+      \qquad
+      \operatorname{Var}(X)=2\nu,
+      \qquad
+      DP(X)=\sqrt{2\nu}.
+      \]
+
+    </div>
+
+    <p>
+      <strong>Termos.</strong>
+      \(\nu\) representa os graus de liberdade;
+      \(x\) é um possível valor positivo da variável;
+      \(\Gamma(\nu/2)\) representa a função Gama.
+    </p>
+
+    <p>
+      <strong>Efeito do parâmetro.</strong>
+      Para poucos graus de liberdade, a distribuição apresenta forte
+      assimetria à direita. À medida que \(\nu\) aumenta, a
+      distribuição se desloca para a direita e se torna relativamente
+      menos assimétrica.
+    </p>
+
+    <div class="plot">
+      <img
+        src="../assets/img/chisq-parametros.svg"
+        alt="Efeito dos graus de liberdade na distribuição Qui-quadrado"
+      >
+    </div>
+
+    <p>
+      <strong>Aplicação.</strong>
+      Construção de intervalos de confiança e testes de hipóteses para
+      a variância de uma população Normal, além de outros
+      procedimentos inferenciais.
+    </p>
+
+    <div class="rbox">
+
+      <strong>R · df = nu</strong>
+
+<pre>
+dchisq(8, df = 5)
+
+pchisq(8, df = 5)
+
+qchisq(0.95, df = 5)
+
+rchisq(1000, df = 5)
+</pre>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       PADRÃO d/p/q/r DO R
+       ========================================================= -->
+
+  <section class="content-section">
+
+    <h2>12. Como interpretar as funções das distribuições no R</h2>
+
+    <p>
+      Para as principais distribuições implementadas no R, os
+      prefixos seguem um padrão.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Prefixo</th>
+            <th>Finalidade</th>
+            <th>Exemplo</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td><code>d</code></td>
+            <td>Densidade ou função de probabilidade</td>
+            <td><code>dnorm()</code></td>
+          </tr>
+
+          <tr>
+            <td><code>p</code></td>
+            <td>Função de distribuição acumulada</td>
+            <td><code>pnorm()</code></td>
+          </tr>
+
+          <tr>
+            <td><code>q</code></td>
+            <td>Função quantil</td>
+            <td><code>qnorm()</code></td>
+          </tr>
+
+          <tr>
+            <td><code>r</code></td>
+            <td>Geração de números pseudoaleatórios</td>
+            <td><code>rnorm()</code></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="note">
+
+      <strong>Importante.</strong>
+      Para uma variável contínua, <code>dnorm(x, ...)</code>,
+      por exemplo, retorna o valor da
+      <strong>densidade</strong> em \(x\), e não
+      \(P(X=x)\). Para qualquer variável aleatória contínua,
+
+      \[
+      P(X=x)=0.
+      \]
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       REFERÊNCIAS
+       ========================================================= -->
+
+  <section class="content-section">
+
+    <h2>Referências</h2>
+
+    <div class="refbox">
+
+      <p>
+        DEVORE, J. L.
+        <em>Probabilidade e Estatística para Engenharia e Ciências</em>.
+        São Paulo: Cengage.
+      </p>
+
+      <p>
+        MONTGOMERY, D. C.; RUNGER, G. C.
+        <em>Estatística Aplicada e Probabilidade para Engenheiros</em>.
+        Rio de Janeiro: LTC.
+      </p>
+
+      <p>
+        WALPOLE, R. E.; MYERS, R. H.; MYERS, S. L.; YE, K.
+        <em>Probabilidade e Estatística para Engenharia e Ciências</em>.
+        São Paulo: Pearson.
+      </p>
+
+      <p>
+        Para a parametrização computacional das distribuições,
+        consulte também a documentação correspondente à versão
+        do R utilizada. No próprio R, use
+        <code>help("Distributions")</code>
+        ou a ajuda específica de cada função, por exemplo
+        <code>?dnorm</code>, <code>?pgamma</code> e
+        <code>?rweibull</code>.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  <div>
+
+    <strong>
+      Estatística & Probabilidade
+    </strong>
+
+    <p>
+      Material didático · UFLA
+    </p>
+
+  </div>
+
+  <div>
+
+    <strong>
+      Prof. Dr. Cássius Henrique Xavier Oliveira
+    </strong>
+
+    <p>
+      ICTIN · Universidade Federal de Lavras
+    </p>
+
+  </div>
+
+  <div class="footer-right">
+    Material de apoio ao ensino
+  </div>
+
+</footer>
+
+
+<script src="../assets/script.js"></script>
+
+</body>
+</html>
